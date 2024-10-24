@@ -9,7 +9,7 @@ tags:
   - Linux
   - Software
 description: First chapter in Neovim Adventures.
-media_subpath: /assets/img/20241022/
+media_subpath: /assets/img/20241024/
 image: nvim.png
 ---
 # Aventuras en Neovim
