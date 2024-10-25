@@ -20,6 +20,7 @@
   --custom-grey: #4b4b4b;
   --custom-fgdark: #e6e6e6;
 
+  --custom-fg: #fff;
   --custom-bg-main: #2b2b2b;
   --custom-bg-alt: #1e1e1e;
   --custom-border: #4b4b4b;
@@ -40,6 +41,7 @@
     --custom-grey: #b2b2b2;
     --custom-fgdark: #0e0e0e;
 
+    --custom-fg: #000;
     --custom-bg-main: #fff;
     --custom-bg-alt: #f6f8fa;
     --custom-border: gray;
@@ -81,14 +83,14 @@ h2 {
 }
 
 h3 {
-  color: var(--custom-purple);
+  color: var(--custom-green);
   font-weight: bold;
 }
 
 h4,
 h5,
 h6 {
-  color: var(--custom-yellow);
+  color: var(--custom-blue);
   font-weight: bold;
 }
 
@@ -96,6 +98,23 @@ h6 {
 header .post-desc {
   font-size: 1.35rem;
   font-style: italic;
+}
+
+.highlight code,
+.highlight code pre {
+  font-size: .9em;
+}
+
+blockquote {
+  font-style: italic;
+  background-color: var(--custom-bg-alt);
+  border-left: .5rem solid var(--custom-orange);
+  padding-top: .1em;
+  padding-bottom: .1em;
+}
+blockquote code.highlighter-rouge {
+  color: var(--custom-fg);
+  font-style: normal;
 }
 
 blockquote.prompt-tip {
@@ -106,6 +125,31 @@ blockquote.prompt-tip code {
   color: var(--custom-tip-code);
 }
 
+.rouge-code .p,
+.rouge-code .k {
+  color: var(--custom-magenta) !important;
+}
+.rouge-code .n {
+  color: var(--custom-fg) !important;
+}
+.rouge-code .nf {
+  color: var(--custom-blue) !important;
+}
+.rouge-code .nv,
+.rouge-code .nb {
+  color: var(--custom-green) !important;
+}
+.rouge-code .s2 {
+  color: var(--custom-yellow) !important;
+}
+.rouge-code .kc {
+  color: var(--custom-purple) !important;
+}
+
+ul li::marker,
+ol li::marker {
+  color: var(--custom-magenta) !important;
+}
 
 // Post date, author and readtime
 .post-meta {
@@ -126,6 +170,9 @@ code.highlighter-rouge {
   color: var(--custom-purple);
   font-size: 1rem;
 }
+code.filepath {
+  color: var(--custom-orange);
+}
 
 // Footer and TOC
 
@@ -141,6 +188,11 @@ code.highlighter-rouge {
 
 .post-tail-wrapper {
   border-bottom: 1px solid var(--custom-border);
+}
+
+// Share icons at the bottom of a post
+.post-tail-wrapper .share-wrapper .share-icons i {
+  color: var(--text-muted-color);
 }
 
 footer {
