@@ -28,6 +28,8 @@
   --custom-tip-bg: #134100;
   --custom-tip-fg: #fff;
   --custom-tip-code: #a4e400;
+  --custom-popup-bg: #fff;
+  --custom-popup-fg: #000;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -50,6 +52,34 @@
     --custom-tip-fg: #575757;
     --custom-tip-code: #02b202;
   }
+}
+
+// Archives entries
+@media (prefers-color-scheme: dark) {
+  html:not([data-mode]) #archives li:nth-child(2n+1),
+  html[data-mode="dark"] #archives li:nth-child(2n+1) {
+    background-image: linear-gradient(
+      to left,
+      rgb(50, 50, 50),
+      rgb(50, 50, 50),
+      rgb(60, 60, 60),
+      rgb(50, 50, 50),
+      rgb(50, 50, 50)
+    );
+    border-radius: 12px;
+  }
+}
+
+a {
+  color: var(--custom-blue);
+  transition: 0.3s;
+}
+
+.content a:not(.img-link):hover,
+#access-lastmod a:hover,
+#toc-wrapper ul .is-active-link,
+#toc-wrapper ul .toc-link:hover {
+  color: var(--custom-orange) !important;
 }
 
 hr {
@@ -199,3 +229,8 @@ footer {
   border-top: 1px solid var(--custom-border);
 }
 
+// New content popup
+#notification.toast.show {
+  background-color: var(--custom-popup-bg);
+  color: var(--custom-popup-fg);
+}
