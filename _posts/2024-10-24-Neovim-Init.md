@@ -24,33 +24,20 @@ mi entorno de desarrollo.
 
 No todas estas ideas han sobrevivido, la gran mayoría de hecho las he eliminado
 cuando no se integraron orgánicamente a mi flujo de trabajo (meses sin usarlas).
-Lo único que queda de ellas es el aprendizaje sobre como escribirlas en lua, y
-el conocimiento de las distintas formas que ofrece Neovim para realizar ciertas
-tareas. El registrar esta experiencia es un objetivo importante de esta serie de
-artículos de modo que pueda ser útil para los que recién comienzan con su propia
+El registrarlas aquí me interesa, pues pese a haberlas descartado el aprendizaje
+de desarrollo y el descubrir las distintas formas que ofrece Neovim para
+tratarlas creo que es bastante valioso cuando uno quiere personalizar su IDE y
+puede ser bastante interesante para los que recién comienzan con su propia
 _NeoVimtura_.
 
-Si estás leyendo esto asumo dos cosas. Primero, que **te interesa** —_incluso
-entretiene_— el ajuste de tus herramientas de trabajo, cual carpintero afilando
-y ajustando su cepillo para que cante en armonía produciendo esa viruta
-semitransparente perfecta; y en segundo lugar asumo que **no quieres perder
-tiempo reinventando la rueda**. Que no nos ocurra, que por ahorrarnos una
-lectura de minutos perdamos horas o incluso _días_ en torno problemas ya
-resueltos y al alcance de una función, flag o parámetro.
-
-Otro objetivo de esta serie, es por un lado ordenar el montón de ideas y
-exploraciones que he ido desarrollando, experimentado e integrando; y por otro,
-disponerlas en un formato didáctico con un poco más de profundidad en cuanto al
-por qué de las cosas en lugar de solo hacer un tutorial o una receta a seguir.
-
-Me interesa poder trasmitir un enfoque más profundo sobre lo que es el
-desarrollo de nuestras herramientas, el tratar de aportar al "¿Por qué quiero
-hacer esto?" o el más fundamental "¿Será esta la mejor forma de abordar el
-problema? A fin de cuentas, el sacarle filo, ajustar de una pieza tan central
-para todos los que trabajamos con textos día a día nos trae beneficios que
-disfrutamos diariamente.
-
-En fin, **¡manos a la obra!**
+Otro objetivo en esta misma línea es el generar material didáctico al respecto
+con un poco más de profundidad en cuanto al por qué de las cosas en lugar de
+solo hacer un tutorial o una receta a seguir. Me interesa poder trasmitir un
+enfoque más profundo sobre lo que es el desarrollo de nuestras herramientas, el
+tratar de aportar al "¿Por qué quiero hacer esto?" o el más fundamental "¿Será
+esta la mejor forma de abordar el problema? A fin de cuentas, el sacarle filo,
+ajustar de una pieza tan central para todos los que trabajamos con textos día a
+día nos trae beneficios que disfrutamos diariamente.
 
 ### Plan de ruta. Qué y cómo.
 
@@ -64,6 +51,8 @@ _A priori_, en esta serie abordaré los siguientes puntos:
 Todos estos puntos están sujetos a ajuste, pero en términos generales este es el
 mapa principal que planteo seguir.
 
+### Metodología
+
 La **metodología** dependerá del tema a tratar, pero se podría resumir en:
 
 - Plantearnos preguntas.
@@ -73,16 +62,23 @@ La **metodología** dependerá del tema a tratar, pero se podría resumir en:
 - Revisión de las posibilidades.
 - Escribir el código.
 
-Con todos estos elementos espero contribuir al desarrollo de una noción más
-depurada del cómo y cuándo construir nuestras propias soluciones, que éstas se
-adapten específicamente a lo que necesitemos —o creamos necesitar—, y por
-supuesto, que ello no involucre compromisos a nivel técnico de organización de
-código o lastrar el desempeño.
+De esta forma espero contribuir al desarrollo de una noción más depurada del
+cómo y cuándo construir nuestras propias soluciones, que éstas se adapten
+específicamente a lo que necesitemos —o creamos necesitar—, y por supuesto, que
+ello no involucre compromisos a nivel técnico de organización de código o
+lastrar el desempeño.
 
-### Fuera de alcance
+### A quién
 
-Por cuestiones de tiempo, atención y mejor enfoque del contenido, no indagaré en
-los siguientes temas e incluso supondré un mínimo de conocimiento previo:
+Si estás leyendo esto asumo dos cosas. Primero, que **te interesa** —_incluso
+entretiene_— el ajuste de tus herramientas de trabajo, cual carpintero afilando
+y amoldando su cepillo hasta dar con el sonido y viruta perfectos; y en segundo
+lugar asumo que **no quieres perder tiempo reinventando la rueda**. Que no nos
+ocurra, que por ahorrarnos una lectura de minutos perdamos horas o incluso
+_días_ en torno problemas ya resueltos y al alcance de una función, flag o
+parámetro.
+
+Esta serie también asumirá cierto conocimiento previo de los siguientes puntos:
 
 - **Funciones básicas:** Cambiar de modos, escribir texto, guardar, salir, etc.
   Por completitud las mencionaré, pero para aprender eso sugiero `:Tutor`.
@@ -90,8 +86,8 @@ los siguientes temas e incluso supondré un mínimo de conocimiento previo:
   se ha escrito demasiado al respecto. Inevitablemente serán abordados, pero no
   como el objetivo final, sino como un medio y no en profundidad.
 - **Vimscript:** Ni en los días de Vim nunca me agradó y siempre lo encontré
-  confuso. A día de hoy esta sensación se mantiene y solo diré que prefiero
-  aprender Lisp y cambiarme a Emacs a adentrarme en él. Gracias Lua.
+  demasiado específico. A día de hoy esta sensación se mantiene y solo diré que
+  prefiero aprender Lisp y cambiarme a Emacs a adentrarme en él. Gracias Lua.
 - **Conceptos de programación:** Utilizaré conceptos de programación tales como
   función, variable, tablas, API, etc., pero al mismo tiempo trataré de explicar
   a lo que me refiero. Por lo demás, Lua es un lenguaje bastante sencillo —y
@@ -101,8 +97,14 @@ los siguientes temas e incluso supondré un mínimo de conocimiento previo:
   creo que si los PC en las tiendas vinieran con Linux por defecto la
   informática en general se encontraría en un estado de mayor salubridad.
 
+Por lo mismo, esta serie está principalmente enfocada a personas que ya han dado
+sus primeros pasos con Neovim y quieren armar su propia configuración, o a
+quiénes simplemente les interese una visión de como plantear y ejecutar una
+
 Con estas aclaraciones generales, ahora sí, procedamos al meollo de este
 capítulo: El inicio, nuestro `init.lua`.
+
+**¡Manos a la obra!**
 
 ---
 
