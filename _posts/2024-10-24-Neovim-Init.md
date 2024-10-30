@@ -17,56 +17,39 @@ image: nvim.png
 ## Generalidades y Objetivos
 
 Llevo algunos años utilizando casi exclusivamente [Neovim](https://neovim.io/)
-para la edición de textos y código en mi sistema y a lo largo de este tiempo he
+para la edición de textos y código en mi sistema, y a lo largo de este tiempo he
 ido acumulando algunas recetas, conceptos e ideas (propias, copiadas y
 adaptadas) que me han llevado a una organización bastante estable y flexible de
 mi entorno de desarrollo.
 
 No todas estas ideas han sobrevivido, la gran mayoría de hecho las he eliminado
-cuando no se integraron orgánicamente a mi flujo de trabajo (meses sin usarlas).
-El registrarlas aquí me interesa, pues pese a haberlas descartado el aprendizaje
-de desarrollo y el descubrir las distintas formas que ofrece Neovim para
-tratarlas creo que es bastante valioso cuando uno quiere personalizar su IDE y
-puede ser bastante interesante para los que recién comienzan con su propia
-_NeoVimtura_.
+al no integrarse orgánicamente en mi flujo de trabajo (tras meses sin usarlas).
+Sin embargo, el aprendizaje que se extrae de su desarrollo y el descubrir las
+posibilidades que ofrece Neovim al respecto es algo realmente útil al querer
+personalizar su entorno de desarrollo. Creo que esto también puede ser algo
+bastante interesante para los que recién comienzan con su propia _NeoVimtura_;
+ya que lo que es inútil para uno bien puede ser la clave de la productividad
+para otro.
 
-Otro objetivo en esta misma línea es el generar material didáctico al respecto
-con un poco más de profundidad en cuanto al por qué de las cosas en lugar de
-solo hacer un tutorial o una receta a seguir. Me interesa poder trasmitir un
-enfoque más profundo sobre lo que es el desarrollo de nuestras herramientas, el
-tratar de aportar al "¿Por qué quiero hacer esto?" o el más fundamental "¿Será
-esta la mejor forma de abordar el problema? A fin de cuentas, el sacarle filo,
-ajustar de una pieza tan central para todos los que trabajamos con textos día a
-día nos trae beneficios que disfrutamos diariamente.
+El generar material didáctico al respecto con un poco más de profundidad en
+cuanto al por qué de las cosas en lugar de solo hacer un tutorial o una receta a
+seguir es uno de los objetivos de esta serie de artículos. Me interesa poder
+trasmitir un enfoque más profundo sobre lo que es el desarrollo de nuestras
+herramientas, el tratar de aportar al "¿Por qué quiero hacer esto?" o el más
+fundamental "¿Será esta la mejor forma de abordar el problema? A fin de cuentas,
+el sacarle filo, ajustar de una pieza tan central para todos los que trabajamos
+con textos día a día nos trae beneficios que disfrutamos diariamente.
+Evidentemente no aspiro a llegar a una conclusión que sea válida para cada caso
+de uso, pero sí al menos plantear las preguntas que creo son las fundamentales.
 
 ### Plan de ruta. Qué y cómo.
 
-_A priori_, en esta serie abordaré los siguientes puntos:
+_A priori_, esta serie estará compuesta por los siguientes artículos:
 
 > 1. Inicio y guía (este artículo)
-> 2. Teclas y criterios.
-> 3. Organización y manejo de errores.
-> 4. Utilidades. Personalizando la navaja suiza
-
-Todos estos puntos están sujetos a ajuste, pero en términos generales este es el
-mapa principal que planteo seguir.
-
-### Metodología
-
-La **metodología** dependerá del tema a tratar, pero se podría resumir en:
-
-- Plantearnos preguntas.
-- Plantearnos meta-preguntas (el cuestionarnos si estamos o no haciendo la
-  pregunta correcta).
-- Explorar qué nos dice la documentación de Neovim al respecto.
-- Revisión de las posibilidades.
-- Escribir el código.
-
-De esta forma espero contribuir al desarrollo de una noción más depurada del
-cómo y cuándo construir nuestras propias soluciones, que éstas se adapten
-específicamente a lo que necesitemos —o creamos necesitar—, y por supuesto, que
-ello no involucre compromisos a nivel técnico de organización de código o
-lastrar el desempeño.
+> 2. Teclas y criterios
+> 3. Organización y manejo de errores
+> 4. Utilidades y personalización
 
 ### A quién
 
@@ -78,31 +61,54 @@ ocurra, que por ahorrarnos una lectura de minutos perdamos horas o incluso
 _días_ en torno problemas ya resueltos y al alcance de una función, flag o
 parámetro.
 
-Esta serie también asumirá cierto conocimiento previo de los siguientes puntos:
+La serie estará principalmente enfocada hacia usuarios de Neovim con un poco de
+experiencia, o que ya han dado sus primeros pasos con el editor, y que quieran
+armar por primera vez su propia configuración, a aquellos que ya han escrito una
+pero no les termina de convencer (problemas de encapsulación, rendimiento,
+comportamiento, etc.), a aquellos curiosos por otras soluciones, y a aquellos
+entusiastas que siempre están buscando formas e ideas de optimización.
+
+### Conocimiento previo
+
+Específicamente la serie asumirá cierto conocimiento previo de los siguientes
+puntos:
 
 - **Funciones básicas:** Cambiar de modos, escribir texto, guardar, salir, etc.
   Por completitud las mencionaré, pero para aprender eso sugiero `:Tutor`.
 - **Movimientos Vim:** Sí, editar un string mediante `ci"` es hermoso, pero ya
-  se ha escrito demasiado al respecto. Inevitablemente serán abordados, pero no
-  como el objetivo final, sino como un medio y no en profundidad.
+  se ha escrito demasiado al respecto. De todas formas los abordaré, pero no
+  como un objetivo final, sino como un medio y no en profundidad.
 - **Vimscript:** Ni en los días de Vim nunca me agradó y siempre lo encontré
   demasiado específico. A día de hoy esta sensación se mantiene y solo diré que
   prefiero aprender Lisp y cambiarme a Emacs a adentrarme en él. Gracias Lua.
 - **Conceptos de programación:** Utilizaré conceptos de programación tales como
   función, variable, tablas, API, etc., pero al mismo tiempo trataré de explicar
-  a lo que me refiero. Por lo demás, Lua es un lenguaje bastante sencillo —y
-  amigable a mi parecer—, de modo que es una perfecta oportunidad para
-  adentrarse un poco en este mundillo.
+  a lo que me refiero. Por lo demás, Lua es un lenguaje bastante sencillo, e
+  incluso amigable en mi opinión, de modo que es una perfecta oportunidad para
+  adentrarse un poco en la programación.
 - **Cosas Windows:** Lo siento, hace años que no uso ese sistema operativo y
   creo que si los PC en las tiendas vinieran con Linux por defecto la
   informática en general se encontraría en un estado de mayor salubridad.
 
-Por lo mismo, esta serie está principalmente enfocada a personas que ya han dado
-sus primeros pasos con Neovim y quieren armar su propia configuración, o a
-quiénes simplemente les interese una visión de como plantear y ejecutar una
+### Metodología
 
-Con estas aclaraciones generales, ahora sí, procedamos al meollo de este
-capítulo: El inicio, nuestro `init.lua`.
+Va a depender del contenido, pero se podría acotar a los siguientes puntos:
+
+- Plantearnos preguntas como usuarios y desarrolladores.
+- Plantearnos meta-pregunta (el cuestionarnos si estamos o no haciendo la
+  pregunta correcta).
+- Encontrar la nomenclatura correcta y explorar qué nos dice la documentación de
+  Neovim al respecto.
+- Revisión de las posibilidades.
+- Escribir el código.
+
+Con esto espero contribuir a una noción más depurada del cómo y cuándo construir
+nuestras propias soluciones, que estas se adapten específicamente a nuestros
+requerimientos (o lo que creamos necesitar), y por supuesto que ello no degrade
+el desempeño o quite flexibilidad al código de configuración.
+
+Con estas aclaraciones generales, procedamos al meollo de este capítulo: El
+inicio, nuestro `init.lua`.
 
 **¡Manos a la obra!**
 
@@ -110,12 +116,14 @@ capítulo: El inicio, nuestro `init.lua`.
 
 ## Init
 
+_Volver a lo básico_
+
 Para comenzar esta serie de aventuras, creo que lo mejor es hacerlo en partida
-doble, es decir, como primera tarea el aprender cuál es la estructura de
+doble, es decir, como primera tarea revisando cuál es la estructura de
 directorios y ficheros que propone Neovim, y al mismo tiempo, aprendamos cómo
 podemos utilizar la documentación para resolver nuestras dudas.
 
-Entonces, desempolvemos nuestra terminal favorita
+Entonces, a levantar nuestra terminal favorita
 ([Konsole](https://konsole.kde.org/) en mi caso) y ejecutemos Neovim:
 
 ```sh
