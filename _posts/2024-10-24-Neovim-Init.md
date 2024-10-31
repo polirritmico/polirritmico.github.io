@@ -20,18 +20,18 @@ Llevo algunos años utilizando casi exclusivamente [Neovim](https://neovim.io/)
 para la edición de textos y código en mi sistema. A lo largo de este tiempo he
 ido acumulando algunas recetas, conceptos e ideas (propias, copiadas y
 adaptadas) que me han llevado a una organización bastante estable y flexible de
-mi entorno de desarrollo que quiero compartir, a través de la presente serie de
-artículos.
+mi entorno de desarrollo junto a una serie de criterios que quiero compartir a
+través de la presente serie de artículos.
 
-No me refiero únicamente al código. No todas estas ideas han sobrevivido, la
-gran mayoría de hecho las he eliminado al pasar meses sin uso y por ende al no
-haberse integrado de forma orgánica en mi flujo de trabajo. Sin embargo, el
-aprendizaje y la exploración de las posibilidades que ofrece Neovim para
-llevarlas a cabo permiten extraer un aprendizaje realmente útil al enfrentar
-nuevos desarrollos. El compartir este aprendizaje y sus conclusiones creo que
-puede ser algo bastante interesante, en especial para aquellos que recién
-comienzan con su propia _NeoVimtura_. Además, lo que a uno puede parecerle
-inútil, bien puede ser la clave o el punto de inflexión para otro.
+No todas estas ideas han sobrevivido, la gran mayoría de hecho las he eliminado
+al quedar relegadas por meses a código sin uso y por ende, al no haberse
+integrado de forma orgánica en mi flujo de trabajo. Sin embargo, el aprendizaje
+y la exploración de las posibilidades que ofrece Neovim para materializarlas
+permiten extraer un aprendizaje realmente útil al enfrentar nuevos desarrollos.
+El compartir este aprendizaje y sus conclusiones creo que puede ser algo
+bastante interesante, en especial para aquellos que recién comienzan con su
+propia _NeoVimtura_. Además, lo que a uno puede parecerle inútil, bien puede ser
+la clave o el punto de inflexión para otro.
 
 El generar material didáctico que aborde estos puntos y sobretodo con un poco
 más de profundidad en cuanto al por qué de las cosas en lugar de solo hacer un
@@ -134,29 +134,31 @@ _Volver al principio_
 Para comenzar esta serie de aventuras, creo que lo mejor es hacerlo en partida
 doble, es decir, el aprender acerca de cuál es la estructura de directorios y
 ficheros que propone Neovim, y al mismo tiempo, el aprender a cómo utilizar la
-documentación para evitar tener que estar saliendo del editor cada vez que no
-sepamos cómo abordar alguna situación puntual. Mientras más tiempo estemos en
+documentación para evitar tener que estar abriendo el navegador web cada vez que
+no sepamos cómo abordar alguna situación puntual. Mientras más tiempo estemos en
 Neovim, más rápido nos familiarizaremos con su flujo, terminología; y el
 aprender a navegar entre **ventanas** y **buffers** es algo que mientras antes
 familiaricemos mejor.
 
 <!-- prettier-ignore-start -->
-> Al respecto es importante **matizar nuestro proceso de aprendizaje**. Un tip
-> que personalmente me sirvió mucho en un principio para una transición exitosa
-> a Neovim, es el no desechar completamente el editor con el que ya estamos
-> acostumbrados a trabajar. Si después de un rato, ya estamos cansados o
-> frustrados y todo se siente cuesta arriba, o si necesitamos resolver
-> situaciones ahora ya o responder a fechas límite, lo mejor sin lugar a dudas
-> es volver a lo conocido y seguir aprendiendo en otro momento. De esta forma
-> evitamos frustraciones completamente válidas y mejoramos nuestra capacidad de
-> comprensión cuando realmente deseamos aprender.
+> **Es importante matizar nuestro proceso de aprendizaje**:
 >
-> En contraste a otros editores, Neovim/Vim proponen un paradigma completamente
-> diferente, de modo que puede ser muy abrumador en ciertos momentos el
-> abordarlo todo.
-
+> Un consejo que personalmente me sirvió mucho para una transición exitosa a
+> Neovim y que siempre trataré de compartir, es el de no desechar completamente
+> el editor con el que ya estamos familiarizados mientras nos encontremos en
+> este estado de aprendizaje.
+>
+> Si después de un rato trabajando en Neovim, ya estamos cansados o frustrados y
+> todo se siente cuesta arriba, o si de pronto tenemos que resolver situaciones
+> inmediatamente o responder a fechas límite; lo mejor sin lugar a dudas en
+> estos casos es volver a lo conocido y seguir aprendiendo en otro momento. De
+> esta forma evitamos frustraciones completamente válidas y mejoramos nuestra
+> capacidad de comprensión cuando realmente deseamos aprender.
+>
+> En contraste a otros editores, Neovim supone un paradigma completamente
+> diferente, de modo que puede ser bastante abrumador en ciertos momentos el
+> abordarlo todo al mismo tiempo.
 {: .prompt-tip }
-
 <!-- prettier-ignore-end -->
 
 Entonces, a levantar nuestra terminal favorita
@@ -166,33 +168,41 @@ Entonces, a levantar nuestra terminal favorita
 $ nvim
 ```
 
+<!-- prettier-ignore-start -->
+> Cuando vemos un comando de shell precedido por el signo `$`, por convención
+> quiere decir que podemos utilizarlo con cualquier usuario sin tener problemas
+> de permisos. Por el contrario, cuando vemos que comienza con `#`, quiere decir
+> que se espera tener permisos de superusuario o `root`.
+{: .prompt-tip }
+<!-- prettier-ignore-end -->
+
 Asumo que no tenemos ningún fichero ni directorio de configuración. A futuro,
 una forma de volver a abrir temporalmente Neovim en este estado por defecto es
 mediante `nvim --clean`. Muy útil en especial cuando algo no funciona y queremos
 conocer si la causa del problema está en nuestra configuración o no.
 
 <!-- prettier-ignore-start -->
-
 ![Interfaz por defecto](default-nvim.png)
 _La interfaz al vacío, tal como la belleza de una piedra al natural conteniendo
 todas las formas y esculturas_
-
 <!-- prettier-ignore-end -->
 
-Y la pregunta sería ¿por dónde comenzar? Bueno, ayudémosnos a nosotros mismos y
-veamos como navegar por la ayuda.
+Bueno, con el editor ya abierto, ayudémosnos a nosotros mismos y veamos como
+navegar por la ayuda.
 
 ### Ayuda y ventanas
 
 Para abrir la ayuda de Neovim tenemos que abrir la `command-line` y ejecutar el
-comando `help`. En terminología vim/nvim, ejecutar `:help`. ¿Qué quiere decir
-esto?:
+comando `help`.
 
-> Decir `:help` equivale a:
+<!-- prettier-ignore-start -->
+> En terminología vim/nvim, ejecutar `:help` quiere decir:
 >
 > 1. Abrir la `command-line` (en **modo normal**, pulsar la tecla `:`).
 > 2. Teclear el comando `help` (opcionalmente podemos escribir solo `h`).
 > 3. Pulsar `<CR>` (la tecla `enter`)
+{: .prompt-info }
+<!-- prettier-ignore-end -->
 
 Recordemos que Neovim es un **editor modal**, esto quiere decir que el teclado y
 todo el software va a cambiar su funcionamiento en base al modo que nos
@@ -203,10 +213,13 @@ con las instrucciones anteriores deberíamos haber abierto la ventana de ayuda
 
 Y así de simple, ya nos encontramos con el primer desafío: **¡¿Tengo que leer la
 documentación ocupando solo la mitad de la pantalla?!** ¡Pues no! Precisamente
-de esto se trata esta serie. De modo que antes de solucionarlo, invito a
-reflexionar un poco sobre este punto.
+el resolver este tipo de situaciones es de lo que se trata esta serie. De modo
+que antes de solucionarlo, invito a reflexionar un poco sobre este punto.
 
-![Help!](help.png) _Tanto desperdicio de espacio..._
+<!-- prettier-ignore-start -->
+![Help!](help.png)
+_Tanto desperdicio de espacio..._
+<!-- prettier-ignore-end -->
 
 La pregunta clave aquí es **¿Qué queremos hacer?**, y la respuesta no es obvia
 como puede parecer: _"Quiero que la pantalla de ayuda ocupe toda la pantalla y
@@ -234,7 +247,7 @@ ajuste adecuado, pero carecemos de exploración suficiente para determinarlo.
 El cambio de este comportamiento por defecto puede suponer una mayor pérdida de
 tiempo que el beneficio o comodidad que estamos buscando. Una futura
 _configuración fantasma_ que ahora encontramos lógica, pero es potencialmente
-una de esas opciones que sabiendo navegar y manejar las ventanas van a
+una de esas opciones que sabiendo navegar y manejar las ventanas puede tender a
 entorpecer más que ayudar o acomodar.
 
 ¿Entonces como lo arreglamos? No lo hacemos. Simplemente, teniendo el foco sobre
@@ -248,9 +261,7 @@ la ayuda (o el foco sobre la _ventana_ que tiene el _buffer_ de ayuda) pulsamos
 > `o`. Como ayuda mnemotécnica, podemos entender el `<C-w>` como _"cosas de
 > ventana"_ (**w**indows) y la tecla `o` de **o**pen (abrir).
 {: > .prompt-info }
-<!-- prettier-ignore-end -->
 
-<!-- prettier-ignore-start -->
 > Cuando hay más de una ventana en la pantalla actual, podemos cambiar el foco
 > con `<C-w>` más la dirección de la ventana (`h`, `j`, `k` o `l`).
 {: > .prompt-tip }
@@ -261,12 +272,26 @@ buscamos la documentación acerca de cómo configurar Neovim. Intentemos entonce
 encontrar esta sección con `:help configuration`.
 
 ¡Oh! ¿¡Qué rayos es `lsp-handler-configuration`!? Bueno, evidentemente no es lo
-que buscamos. Intentemos con `:help config`. ¡Ah!, ahora sí estamos hablando. Y
-este es uno de esos puntos que a medida que nos familiaricemos con Neovim se
-irán facilitando, pues en principio no tenemos ninguna noción de la terminología
-que utiliza el manual. Más adelante podremos utilizar **Telescope**, **Fzf** u
-otras alternativas para ayudarnos con esto, pero por el momento ya podemos leer
-en la ayuda el siguiente mensaje (editado):
+que buscamos.
+
+Tradicionalmente las aplicaciones en terminales utilizan mecánicas que siguen
+ciertos patrones de uso históricos. En este caso precisamente nos encontramos
+frente a uno de ellos, dentro de la `command-line`, podemos utilizar `<Tab>` a
+modo de autocompletar nuestro comando y sus argumentos. En este caso si
+escribimos solo la primera `h` de `help` y pulsamos `<Tab>`, Neovim
+**autocompletará** el comando. Cuando existe más de una posibilidad abrirá un
+menú donde podemos elegir la opción que queramos y pulsar `<Tab>` nuevamente
+para **expandir** la selección.
+
+De esta forma, podemos ver que buscando `conf` tenemos muchas posibilidades a
+elegir tales como `:conf`, `config`, `confirm`, etc. Intentemos con
+`:help config`. ¡Ah!, ahora sí estamos hablando, esto sí tiene sentido.
+
+Este es uno de los puntos que se nos irá facilitando a medida que nos
+familiaricemos con Neovim, pues en principio no tenemos ninguna noción de la
+terminología que utiliza el manual. Más adelante podremos utilizar
+**Telescope**, **Fzf** u otras alternativas para ayudarnos con esto, pero por el
+momento ya podemos leer en la ayuda el siguiente mensaje (editado):
 
 > A file containing initialization commands is generically called a "vimrc" or
 > config file...
@@ -277,33 +302,43 @@ en la ayuda el siguiente mensaje (editado):
 > - Windows: `~/AppData/Local/nvim/init.lua`
 > - XDG: `$XDG_CONFIG_HOME/nvim/init.lua`
 
+OK, generemos este archivo.
+
 ### Paths
 
-OK, generemos este archivo. En terminología Unix, `~` representa el directorio
-home de nuestro usuario. Por ejemplo, si nuestro usuario se llama `foo`,
-entonces `~/` representa la ruta `/home/foo/` en nuestro sistema de archivos.
-Además, por lo general en sistemas Linux es habitual tener por defecto la
-variable de entorno `XDG_CONFIG_HOME` apuntando a `~/.config/`. Ergo en nuestro
-entorno de shell, `nvim` va a buscar el archivo `init.lua` en
-`/home/<nombre de usuario>/.config/nvim/init.lua`:
+En terminología Unix, `~` representa el directorio home de nuestro usuario. Por
+ejemplo, si nuestro usuario se llama `foo`, entonces `~/` representa la ruta
+`/home/foo/` en nuestro sistema de archivos. Además, por lo general en sistemas
+Linux es habitual tener por defecto la variable de entorno `XDG_CONFIG_HOME`
+apuntando a `~/.config/`. Podemos revisar hacia dónde apunta, abriendo una
+terminal y revisando la salida del comando:
 
 ```sh
-cd
-mkdir .config/nvim
-cd .config/nvim
-touch init.lua
+$ echo "$XDG_CONFIG_HOME"
+```
+
+Ergo, Neovim va a buscar nuestro archivo `init.lua` en
+`/home/<nombre de usuario>/.config/nvim/init.lua`. Creémoslo:
+
+```sh
+$ cd
+$ mkdir .config/nvim
+$ cd .config/nvim
+$ touch init.lua
 ```
 
 ¡A editar!
 
 ```sh
-nvim init.lua
+$ nvim init.lua
 ```
 
 Aquí tenemos nuestro glorioso archivo de configuración:
 
-![Fichero vacío en Neovim](base-init.png) _¡Nuestra hermosa página en blanco!
-¡Véanla! ¡Tan llena de posibilidades!_
+<!-- prettier-ignore-start -->
+![Fichero vacío en Neovim](base-init.png)
+_¡Nuestra hermosa página en blanco! ¡Véanla! ¡Tan llena de posibilidades!_
+<!-- prettier-ignore-end -->
 
 Ahora veamos si Neovim está leyendo o no el fichero a través de el clásico
 _¡Hola mundo!_ (Sí, _Hola mundo_ para configurar nuestro editor). Utilizamos el
@@ -316,6 +351,12 @@ siguiente código:
 vim.notify("¡Hola mundo!")
 ```
 
+<!-- prettier-ignore-start -->
+> Una buena fuente de información al respecto del lenguaje Lua la encontramos
+> —como no— dentro de la documentación: `:help lua`.
+{: .prompt-tip }
+<!-- prettier-ignore-end -->
+
 El código lo ingresamos cambiando del `normal-mode` al `insert-mode` con la
 tecla `i` y una vez escrito volvemos al modo normal con `<Esc>`. Para guardar
 los cambios y cerrar la instancia actual Neovim, podemos pulsar `:qw` o `<ZZ>`.
@@ -324,7 +365,7 @@ Tras volver a abrir Neovim tenemos esto:
 
 ![Hola mundo](hello-world.png)
 
-Perfecto. Todo funcionando.
+Perfecto. Todo funcionando. Una vez comprobado limpiemos el archivo.
 
 <!-- prettier-ignore-start -->
 > Lua ofrece la función `print` que podemos utilizar en lugar a `vim.notify`,
@@ -335,7 +376,6 @@ Perfecto. Todo funcionando.
 
 > Si en cualquier momento queremos volver a ver este o cualquier mensaje podemos
 > utilizar el comando `:messages` o `:mess`.
-{: .prompt-tip }
 <!-- prettier-ignore-end -->
 
 ### Nuestro init.lua
@@ -360,9 +400,42 @@ _setup_ en base a ficheros (o módulos) de funcionalidad. Esta división como en
 cualquier código, es un desafío de sutiles implicaciones y allí su dificultad,
 pero _mucha agua ha pasado bajo este puente_, de modo que podemos aplicar la
 solución que muchos han encontrado al respecto, y es precisamente la que
-aplicaremos. Navegar por los diversos ficheros de un proyecto en Neovim es una
-gozada en comparación a otras IDE, sobretodo si lo potenciamos con algunos
-plugins (aunque las posibilidades por defecto también son muy buenas).
+aplicaremos: **dividir nuestra configuración en múltiples ficheros**. Además, el
+navegar por los diversos ficheros de un proyecto en Neovim es una gozada en
+comparación a otras IDE, sobretodo si lo potenciamos con algunos _plugins_
+(aunque las posibilidades por defecto también son muy buenas).
 
-Tras esta reflexión volvamos a enfocarnos en nuestro archivo casi vacío.
+Creemos entonces la siguiente propuesta de organización:
+
+```
+nvim/
+├── init.lua
+└── lua
+    └── config
+        ├── mappings.lua
+        └── settings.lua
+```
+
+Y para que neovim "lea" los ficheros `mappings.lua` y `settings.lua` utilicemos
+la función `require` dentro de nuestro `init.lua`:
+
+```lua
+require("config.settings")
+require("config.mappings")
+```
+
+`require` es una función Lua que opera bajo la abstracción de **módulos**. Un
+módulo Lua, es básicamente un fichero `.lua` que Lua lee a través de la función
+`require`. Tras la lectura del archivo, ejecuta su código y guarda el resultado
+en memoria de tal modo que sus funciones, variables o configuraciones queden a
+disposición para utilizarse o reutilizarse.
+
+En el caso anterior, `settings` y `mappings` son nuestros módulos y `config`
+sería un directorio contenedor que utilizamos para la organización del código.
+
+Creo que lo que hace cada uno de estos módulos es autoexplicativo, pero para
+confirmar: La idea es que dentro de `settings` agregemos todas las opciones de
+Neovim tales como columnas con números relativos, ancho del texto por defecto,
+opciones de la barra de estado, etc.; y dentro de `mappings` todo lo referente a
+atajos de teclado.
 
