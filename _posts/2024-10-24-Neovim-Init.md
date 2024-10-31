@@ -17,34 +17,37 @@ image: nvim.png
 ## Generalidades y Objetivos
 
 Llevo algunos años utilizando casi exclusivamente [Neovim](https://neovim.io/)
-para la edición de textos y código en mi sistema, y a lo largo de este tiempo he
+para la edición de textos y código en mi sistema. A lo largo de este tiempo he
 ido acumulando algunas recetas, conceptos e ideas (propias, copiadas y
 adaptadas) que me han llevado a una organización bastante estable y flexible de
-mi entorno de desarrollo.
+mi entorno de desarrollo que quiero compartir, a través de la presente serie de
+artículos.
 
-No todas estas ideas han sobrevivido, la gran mayoría de hecho las he eliminado
-al no integrarse orgánicamente en mi flujo de trabajo (tras meses sin usarlas).
-Sin embargo, el aprendizaje que se extrae de su desarrollo y el descubrir las
-posibilidades que ofrece Neovim al respecto es algo realmente útil al querer
-personalizar su entorno de desarrollo. Creo que esto también puede ser algo
-bastante interesante para los que recién comienzan con su propia _NeoVimtura_;
-ya que lo que es inútil para uno bien puede ser la clave de la productividad
-para otro.
+No me refiero únicamente al código. No todas estas ideas han sobrevivido, la
+gran mayoría de hecho las he eliminado al pasar meses sin uso y por ende al no
+haberse integrado de forma orgánica en mi flujo de trabajo. Sin embargo, el
+aprendizaje y la exploración de las posibilidades que ofrece Neovim para
+llevarlas a cabo permiten extraer un aprendizaje realmente útil al enfrentar
+nuevos desarrollos. El compartir este aprendizaje y sus conclusiones creo que
+puede ser algo bastante interesante, en especial para aquellos que recién
+comienzan con su propia _NeoVimtura_. Además, lo que a uno puede parecerle
+inútil, bien puede ser la clave o el punto de inflexión para otro.
 
-El generar material didáctico al respecto con un poco más de profundidad en
-cuanto al por qué de las cosas en lugar de solo hacer un tutorial o una receta a
-seguir es uno de los objetivos de esta serie de artículos. Me interesa poder
-trasmitir un enfoque más profundo sobre lo que es el desarrollo de nuestras
-herramientas, el tratar de aportar al "¿Por qué quiero hacer esto?" o el más
-fundamental "¿Será esta la mejor forma de abordar el problema? A fin de cuentas,
-el sacarle filo, ajustar de una pieza tan central para todos los que trabajamos
-con textos día a día nos trae beneficios que disfrutamos diariamente.
-Evidentemente no aspiro a llegar a una conclusión que sea válida para cada caso
-de uso, pero sí al menos plantear las preguntas que creo son las fundamentales.
+El generar material didáctico que aborde estos puntos y sobretodo con un poco
+más de profundidad en cuanto al por qué de las cosas en lugar de solo hacer un
+tutorial o receta a seguir, es otro de los objetivos principales de estos
+artículos. Me interesa el poder trasmitir un enfoque más profundo sobre lo que
+es el desarrollo de nuestras herramientas, el tratar de aportar al _"¿Por qué
+quiero hacer esto?"_ o el más fundamental _"¿Será esta la mejor forma de abordar
+el problema?_, pues a fin de cuentas, el _sacarle filo_, el ajustar una pieza
+tan central para todos los que trabajamos con textos día a día puede traer
+potencialmente beneficios que disfrutaremos diariamente. Evidentemente no aspiro
+a llegar a una conclusión que sea válida para cada caso de uso, pero sí al menos
+a poder plantear preguntas que considero más fundamentales.
 
 ### Plan de ruta. Qué y cómo.
 
-_A priori_, esta serie estará compuesta por los siguientes artículos:
+_A priori_, la serie estará compuesta por los siguientes artículos:
 
 > 1. Inicio y guía (este artículo)
 > 2. Teclas y criterios
@@ -55,18 +58,23 @@ _A priori_, esta serie estará compuesta por los siguientes artículos:
 
 Si estás leyendo esto asumo dos cosas. Primero, que **te interesa** —_incluso
 entretiene_— el ajuste de tus herramientas de trabajo, cual carpintero afilando
-y amoldando su cepillo hasta dar con el sonido y viruta perfectos; y en segundo
-lugar asumo que **no quieres perder tiempo reinventando la rueda**. Que no nos
-ocurra, que por ahorrarnos una lectura de minutos perdamos horas o incluso
-_días_ en torno problemas ya resueltos y al alcance de una función, flag o
-parámetro.
+y afinando el filo de su cepillo hasta dar con el sonido y viruta perfectos. Y
+en segundo lugar, asumo que **no quieres perder tiempo reinventando la rueda**.
+Que no nos ocurra, que por ahorrarnos una lectura de minutos perdamos horas o
+incluso _días_ en torno problemas ya resueltos y al alcance de una función, flag
+o parámetro.
 
-La serie estará principalmente enfocada hacia usuarios de Neovim con un poco de
-experiencia, o que ya han dado sus primeros pasos con el editor, y que quieran
-armar por primera vez su propia configuración, a aquellos que ya han escrito una
-pero no les termina de convencer (problemas de encapsulación, rendimiento,
-comportamiento, etc.), a aquellos curiosos por otras soluciones, y a aquellos
-entusiastas que siempre están buscando formas e ideas de optimización.
+La serie estará principalmente enfocada hacia:
+
+- Usuarios de Neovim con un poco de experiencia, curiosidad o que ya han dado
+  sus primeros pasos con el editor y quieren armar por primera vez su propia
+  configuración o una más definitiva.
+- Aquellos que ya han escrito su configuración pero no les termina de convencer
+  (problemas de encapsulación, rendimiento, comportamiento, etc.)
+- Aquellos entusiastas que siempre están buscando formas e ideas de optimización
+  o solo puntos de vista diferentes.
+- Usuarios nóveles que aún naufragan en el mar de sobrecogedora abundancia que
+  ofrece nvim sobre cómo resolver las cosas.
 
 ### Conocimiento previo
 
@@ -76,19 +84,23 @@ puntos:
 - **Funciones básicas:** Cambiar de modos, escribir texto, guardar, salir, etc.
   Por completitud las mencionaré, pero para aprender eso sugiero `:Tutor`.
 - **Movimientos Vim:** Sí, editar un string mediante `ci"` es hermoso, pero ya
-  se ha escrito demasiado al respecto. De todas formas los abordaré, pero no
-  como un objetivo final, sino como un medio y no en profundidad.
+  se ha escrito demasiado al respecto.
 - **Vimscript:** Ni en los días de Vim nunca me agradó y siempre lo encontré
   demasiado específico. A día de hoy esta sensación se mantiene y solo diré que
-  prefiero aprender Lisp y cambiarme a Emacs a adentrarme en él. Gracias Lua.
+  prefiero aprender Lisp y cambiarme a Emacs a adentrarme en él (gracias Lua).
 - **Conceptos de programación:** Utilizaré conceptos de programación tales como
   función, variable, tablas, API, etc., pero al mismo tiempo trataré de explicar
-  a lo que me refiero. Por lo demás, Lua es un lenguaje bastante sencillo, e
-  incluso amigable en mi opinión, de modo que es una perfecta oportunidad para
-  adentrarse un poco en la programación.
+  a lo que me refiero para los más alejados o novatos con el código. Por lo
+  demás, Lua es un lenguaje bastante sencillo, e incluso amigable en mi opinión,
+  de modo que es una perfecta oportunidad para adentrarse un poco en la
+  programación.
 - **Cosas Windows:** Lo siento, hace años que no uso ese sistema operativo y
-  creo que si los PC en las tiendas vinieran con Linux por defecto la
+  creo que si los PC vinieran con Linux por defecto de las tiendas la
   informática en general se encontraría en un estado de mayor salubridad.
+
+No obstante los puntos anteriormente mencionados, trataré de incluir recuadros
+de ayuda y _tips_ que provean cierta información que considere valiosa o útil de
+manejar sobre estos temas.
 
 ### Metodología
 
@@ -101,6 +113,7 @@ Va a depender del contenido, pero se podría acotar a los siguientes puntos:
   Neovim al respecto.
 - Revisión de las posibilidades.
 - Escribir el código.
+- Conclusiones.
 
 Con esto espero contribuir a una noción más depurada del cómo y cuándo construir
 nuestras propias soluciones, que estas se adapten específicamente a nuestros
@@ -116,28 +129,55 @@ inicio, nuestro `init.lua`.
 
 ## Init
 
-_Volver a lo básico_
+_Volver al principio_
 
 Para comenzar esta serie de aventuras, creo que lo mejor es hacerlo en partida
-doble, es decir, como primera tarea revisando cuál es la estructura de
-directorios y ficheros que propone Neovim, y al mismo tiempo, aprendamos cómo
-podemos utilizar la documentación para resolver nuestras dudas.
+doble, es decir, el aprender acerca de cuál es la estructura de directorios y
+ficheros que propone Neovim, y al mismo tiempo, el aprender a cómo utilizar la
+documentación para evitar tener que estar saliendo del editor cada vez que no
+sepamos cómo abordar alguna situación puntual. Mientras más tiempo estemos en
+Neovim, más rápido nos familiarizaremos con su flujo, terminología; y el
+aprender a navegar entre **ventanas** y **buffers** es algo que mientras antes
+familiaricemos mejor.
+
+<!-- prettier-ignore-start -->
+> Al respecto es importante **matizar nuestro proceso de aprendizaje**. Un tip
+> que personalmente me sirvió mucho en un principio para una transición exitosa
+> a Neovim, es el no desechar completamente el editor con el que ya estamos
+> acostumbrados a trabajar. Si después de un rato, ya estamos cansados o
+> frustrados y todo se siente cuesta arriba, o si necesitamos resolver
+> situaciones ahora ya o responder a fechas límite, lo mejor sin lugar a dudas
+> es volver a lo conocido y seguir aprendiendo en otro momento. De esta forma
+> evitamos frustraciones completamente válidas y mejoramos nuestra capacidad de
+> comprensión cuando realmente deseamos aprender.
+>
+> En contraste a otros editores, Neovim/Vim proponen un paradigma completamente
+> diferente, de modo que puede ser muy abrumador en ciertos momentos el
+> abordarlo todo.
+
+{: .prompt-tip }
+
+<!-- prettier-ignore-end -->
 
 Entonces, a levantar nuestra terminal favorita
-([Konsole](https://konsole.kde.org/) en mi caso) y ejecutemos Neovim:
+([Konsole](https://konsole.kde.org/) en mi caso) y ejecutar Neovim:
 
 ```sh
 $ nvim
 ```
 
 Asumo que no tenemos ningún fichero ni directorio de configuración. A futuro,
-una forma de volver a abrir Neovim en este estado por defecto es mediante
-`nvim --clean`, muy útil en especial cuando algo no funciona y queremos conocer
-si es un problema en el sistema operativo, el propio Neovim, o nuestra
-configuración.
+una forma de volver a abrir temporalmente Neovim en este estado por defecto es
+mediante `nvim --clean`. Muy útil en especial cuando algo no funciona y queremos
+conocer si la causa del problema está en nuestra configuración o no.
 
-![Interfaz por defecto](default-nvim.png) _La interfaz al vacío, tal como la
-belleza de una piedra al natural conteniendo todas las formas y esculturas_
+<!-- prettier-ignore-start -->
+
+![Interfaz por defecto](default-nvim.png)
+_La interfaz al vacío, tal como la belleza de una piedra al natural conteniendo
+todas las formas y esculturas_
+
+<!-- prettier-ignore-end -->
 
 Y la pregunta sería ¿por dónde comenzar? Bueno, ayudémosnos a nosotros mismos y
 veamos como navegar por la ayuda.
@@ -287,10 +327,10 @@ Tras volver a abrir Neovim tenemos esto:
 Perfecto. Todo funcionando.
 
 <!-- prettier-ignore-start -->
-> Es necesario aclarar que lua ofrece la función `print` que podemos utilizar en
-> lugar a `vim.notify`. Sin embargo, prefiero esta última porque permite agregar
-> niveles de mensajes (advertencias, errores) y según la documentación se puede
-> reemplazar por un proveedor personalizado.
+> Lua ofrece la función `print` que podemos utilizar en lugar a `vim.notify`,
+> sin embargo, prefiero esta última porque permite agregar niveles de mensajes
+> (advertencias, errores) y según la documentación se puede reemplazar por un
+> proveedor personalizado.
 {: .prompt-info }
 
 > Si en cualquier momento queremos volver a ver este o cualquier mensaje podemos
@@ -302,8 +342,10 @@ Perfecto. Todo funcionando.
 
 El cómo organizar nuestra configuración es un tema que abordaremos en detalle
 más adelante, sin embargo en términos generales podemos mencionar dos opciones:
-o manejamos todo en un único `init.lua`, o separamos los distintos ámbitos de
-nuestra configuración en múltiples archivos.
+
+1. Manejamos todo en un único `init.lua`
+2. Separamos los distintos ámbitos de nuestra configuración en múltiples
+   archivos.
 
 Ambas estrategias ofrecen beneficios y dificultades, es más que nada una
 decisión personal, pero creo en base a mi experiencia trabajando en distintas
