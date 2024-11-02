@@ -1,5 +1,5 @@
 ---
-title: 'Neovim Adventures: Let''s start from the init'
+title: '(WIP) Neovim Adventures: Let''s start from the init'
 date: '2024-10-24 20:02 -0300'
 categories:
   - Neovim
@@ -12,7 +12,7 @@ description: First chapter in Neovim Adventures.
 media_subpath: /assets/img/20241024/
 image: nvim.png
 ---
-# Aventuras en Neovim
+# Aventuras en Neovim (Work in progress)
 
 ## Generalidades y Objetivos
 
@@ -158,7 +158,7 @@ familiaricemos mejor.
 > En contraste a otros editores, Neovim supone un paradigma completamente
 > diferente, de modo que puede ser bastante abrumador en ciertos momentos el
 > abordarlo todo al mismo tiempo.
-{: .prompt-tip }
+{: .prompt-warning }
 <!-- prettier-ignore-end -->
 
 Entonces, a levantar nuestra terminal favorita
@@ -261,10 +261,6 @@ la ayuda (o el foco sobre la _ventana_ que tiene el _buffer_ de ayuda) pulsamos
 > `o`. Como ayuda mnemotécnica, podemos entender el `<C-w>` como _"cosas de
 > ventana"_ (**w**indows) y la tecla `o` de **o**pen (abrir).
 {: > .prompt-info }
-
-> Cuando hay más de una ventana en la pantalla actual, podemos cambiar el foco
-> con `<C-w>` más la dirección de la ventana (`h`, `j`, `k` o `l`).
-{: > .prompt-tip }
 <!-- prettier-ignore-end -->
 
 Ahora, con la documentación a pantalla completa, nos queda dilucidar el cómo
@@ -302,7 +298,18 @@ momento ya podemos leer en la ayuda el siguiente mensaje (editado):
 > - Windows: `~/AppData/Local/nvim/init.lua`
 > - XDG: `$XDG_CONFIG_HOME/nvim/init.lua`
 
-OK, generemos este archivo.
+OK, generemos este archivo. ¿Pero cómo cerramos esta ventana de ayuda? Por
+supuesto, pero aprovechando la necesidad indaguemos un poco en esto de las
+ventanas.
+
+### Moviendo entre ventanas
+
+Podríamos intuir que lo que está mostrando cada ventana es _el archivo_, pero
+esto no es del todo cierto. Neovim/Vim operan bajo una abstracción llamada
+**buffer**. Apenas terminemos
+
+Cuando hay más de una ventana en la pantalla actual, podemos cambiar el foco con
+`<C-w>` más la dirección de la ventana (`h`, `j`, `k` o `l`).
 
 ### Paths
 
@@ -367,15 +374,15 @@ Tras volver a abrir Neovim tenemos esto:
 
 Perfecto. Todo funcionando. Una vez comprobado limpiemos el archivo.
 
+> Si en cualquier momento queremos volver a ver este o cualquier mensaje de la
+> sesión actual podemos utilizar el comando `:messages` o `:mess`.
+
 <!-- prettier-ignore-start -->
 > Lua ofrece la función `print` que podemos utilizar en lugar a `vim.notify`,
 > sin embargo, prefiero esta última porque permite agregar niveles de mensajes
 > (advertencias, errores) y según la documentación se puede reemplazar por un
 > proveedor personalizado.
 {: .prompt-info }
-
-> Si en cualquier momento queremos volver a ver este o cualquier mensaje podemos
-> utilizar el comando `:messages` o `:mess`.
 <!-- prettier-ignore-end -->
 
 ### Nuestro init.lua
@@ -433,9 +440,25 @@ disposición para utilizarse o reutilizarse.
 En el caso anterior, `settings` y `mappings` son nuestros módulos y `config`
 sería un directorio contenedor que utilizamos para la organización del código.
 
-Creo que lo que hace cada uno de estos módulos es autoexplicativo, pero para
-confirmar: La idea es que dentro de `settings` agregemos todas las opciones de
-Neovim tales como columnas con números relativos, ancho del texto por defecto,
-opciones de la barra de estado, etc.; y dentro de `mappings` todo lo referente a
-atajos de teclado.
+Creo que el sentido de cada uno de ambos módulos es autoexplicativo, pero en
+cualquier caso, la idea es que dentro de `settings` agreguemos todas las
+opciones específicas de Neovim tales como columnas con números relativos, ancho
+del texto por defecto, opciones de la barra de estado, etc.; y dentro de
+`mappings` agreguemos todo lo referente a atajos y configuraciones de teclado.
+
+Su contenido ya lo revisaremos en la siguiente entrega.
+
+---
+
+# Conclusiones
+
+Hemos avanzado poco, pero al mismo tiempo abarcado muchos elementos. A modo de
+conclusión enumeremos las ideas clave:
+
+- Abrir la documentación o ayuda de Neovim
+- Los comandos relacionados con las ventanas utilizan `<C-w>`
+- Para agrandar una ventana dividida, con el foco en la ventana que queremos
+  agrandar utilizamos `<C-w>o`.
+- Para cambiar el "foco de la ventana" podemos utilizar `<C-w>` más la dirección
+  de la ventana a enfocar (`h`, `j`, `k` o `l`).
 
