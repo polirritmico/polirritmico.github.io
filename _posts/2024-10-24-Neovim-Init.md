@@ -169,10 +169,10 @@ $ nvim
 ```
 
 <!-- prettier-ignore-start -->
-> Cuando vemos un comando de shell precedido por el signo `$`, por convención
-> quiere decir que podemos utilizarlo con cualquier usuario sin tener problemas
-> de permisos. Por el contrario, cuando vemos que comienza con `#`, quiere decir
-> que se espera tener permisos de superusuario o `root`.
+> Cuando vemos un comando de shell precedido por el signo `$` o (`%`), por
+> convención quiere decir que podemos utilizarlo con cualquier usuario sin tener
+> problemas de permisos. Por el contrario, cuando vemos que comienza con `#`,
+> quiere decir que se espera tener permisos de superusuario o `root`.
 {: .prompt-tip }
 <!-- prettier-ignore-end -->
 
@@ -452,13 +452,17 @@ Su contenido ya lo revisaremos en la siguiente entrega.
 
 # Conclusiones
 
-Hemos avanzado poco, pero al mismo tiempo abarcado muchos elementos. A modo de
-conclusión enumeremos las ideas clave:
+Hemos avanzado poco, pero al mismo tiempo abarcado muchos elementos. Las futuras
+entregas tendrán mucho más código. Por ahora, a modo de conclusión enumeremos
+las ideas clave que hemos abarcado:
 
-- Abrir la documentación o ayuda de Neovim
-- Los comandos relacionados con las ventanas utilizan `<C-w>`
-- Para agrandar una ventana dividida, con el foco en la ventana que queremos
-  agrandar utilizamos `<C-w>o`.
-- Para cambiar el "foco de la ventana" podemos utilizar `<C-w>` más la dirección
-  de la ventana a enfocar (`h`, `j`, `k` o `l`).
+- Abrir la documentación o ayuda de Neovim.
+- Comandos relacionados con las ventanas (`<C-w>`):
+  - `<C-w>o` para agrandar una ventana dividida (con el foco en la ventana que
+    queremos agrandar).
+  - `<C-w>` más la dirección de la ventana a enfocar para cambiar el "foco de la
+    ventana".
+- Ayuda a través de la `command-line` (`:help <búsqueda>`).
+- Archivo de configuración `:h config`.
+- Función `require`.
 
