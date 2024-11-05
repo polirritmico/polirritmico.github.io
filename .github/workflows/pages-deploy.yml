@@ -45,6 +45,12 @@ jobs:
           ruby-version: 3.3
           bundler-cache: true
 
+      - name: Get Polyglot gem path
+        run: echo "POLYGLOT_PATH=$(gem contents jekyll-polyglot | head -n 1 | xargs dirname)" >> $GITHUB_ENV
+
+      - name: Patch Polyglot
+        run: patch "${POLYGLOT_PATH}/lib/jekyll/polyglot/patches/jekyll/site.rb" < patches/polyglot.patch
+
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         env:
