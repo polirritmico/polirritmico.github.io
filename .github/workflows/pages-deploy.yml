@@ -46,7 +46,7 @@ jobs:
           bundler-cache: true
 
       - name: Patch Polyglot to handle Chirpy exclude glob patterns
-        run: patch -p1 -i "/home/runner/work/polirritmico.github.io/polirritmico.github.io/patches/polyglot.patch" -o "/home/runner/work/polirritmico.github.io/polirritmico.github.io/vendor/bundle/ruby/3.3.0/gems/jekyll-polyglot-1.8.1/lib/jekyll/polyglot/patches/jekyll/site.rb"
+        run: patch --directory="/home/runner/work/polirritmico.github.io/polirritmico.github.io/vendor/bundle/ruby/3.3.0/gems/jekyll-polyglot-1.8.1/lib/jekyll/polyglot/patches/jekyll/" -p1 < "/home/runner/work/polirritmico.github.io/polirritmico.github.io/patches/polyglot.patch"
 
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
