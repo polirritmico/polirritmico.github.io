@@ -40,11 +40,13 @@
       <li class="nav-item">
         {% if site.active_lang == site.default_lang %}
           <a href="/es{{ page.url }}" class="nav-link">
+          <i class="fa-fw fas fa-globe"></i>
+          <span class="current_lang">ENG</span>&nbsp;|&nbsp;<span>ESP</span>
         {% else %}
           <a href=" {{ page.url }}" class="nav-link">
+          <i class="fa-fw fas fa-globe"></i>
+          <span>ENG</span>&nbsp;|&nbsp;<span class="current_lang">ESP</span>
         {% endif %}
-            <i class="fa-fw fas fa-globe"></i>
-            <span>EN | ES</span>
           </a>
       </li>
     </ul>
