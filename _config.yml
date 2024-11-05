@@ -1,8 +1,16 @@
 # Site Configuration
 
+# Multi-language support
+plugins:
+  - jekyll-polyglot
+
 theme: jekyll-theme-chirpy
 
-lang: en # es_ES (check `_data/locales`)
+# lang: en # es_ES (check `_data/locales`)
+languages: ["en", "es"]
+default_lang: "en"
+exclude_from_localization: ["assets", "javascript", "img", "css"]
+parallel_localization: false
 
 timezone: America/Santiago
 

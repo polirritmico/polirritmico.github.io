@@ -1,8 +1,8 @@
 ---
-title: '(WIP) Aventuras en Neovim: Comencemos por el init'
+title: '(WIP) Neovim Adventures: Let''s start from the init'
 date: '2024-10-24 20:02 -0300'
 permalink: /posts/Neovim-Init
-lang: es
+lang: en
 categories:
   - Neovim
   - Development
@@ -10,42 +10,41 @@ tags:
   - Tools
   - Linux
   - Software
-description: Primer capítulo de las aventuras en Neovim.
+description: First chapter in Neovim Adventures.
 media_subpath: /assets/img/20241024/
 image: nvim.png
 ---
-# Aventuras en Neovim (WIP)
+# Neovim Adventures I (WIP)
 
-## Generalidades y Objetivos
+## Objectives and Generalities
 
-Llevo algunos años utilizando casi exclusivamente [Neovim](https://neovim.io/)
-para la edición de textos y código en mi sistema. A lo largo de este tiempo he
-ido acumulando algunas recetas, conceptos e ideas (propias, copiadas y
-adaptadas) que me han llevado a una organización bastante estable y flexible de
-mi entorno de desarrollo junto a una serie de criterios que quiero compartir a
-través de la presente serie de artículos.
+I have been using [Neovim](https://neovim.io/) almost exclusively for editing
+text and code in my system for some years now. Throughout this time I have been
+accumulating some recipes, concepts and ideas (my own, copied and adapted) that
+have led me to a fairly stable and flexible organization of my development
+environment along with a series of criteria that I want to share through this
+series of articles.
 
-No todas estas ideas han sobrevivido, la gran mayoría de hecho las he eliminado
-al quedar relegadas por meses a código sin uso y por ende, al no haberse
-integrado de forma orgánica en mi flujo de trabajo. Sin embargo, el aprendizaje
-y la exploración de las posibilidades que ofrece Neovim para materializarlas
-permiten extraer un aprendizaje realmente útil al enfrentar nuevos desarrollos.
-El compartir este aprendizaje y sus conclusiones creo que puede ser algo
-bastante interesante, en especial para aquellos que recién comienzan con su
-propia _NeoVimtura_. Además, lo que a uno puede parecerle inútil, bien puede ser
-la clave o el punto de inflexión para otro.
+Not all of these ideas have survived, the vast majority in fact I have
+eliminated them as they have been relegated for months to unused code and thus
+not organically integrated into my workflow. However, learning and exploring the
+possibilities that Neovim offers to materialize them allows to extract a really
+useful learning when facing new developments. Sharing this learning and its
+conclusions I think can be something quite interesting, especially for those who
+are just starting with their own _NeoVimtura_. Moreover, what may seem useless
+to one may well be the key or turning point for another.
 
-El generar material didáctico que aborde estos puntos y sobretodo con un poco
-más de profundidad en cuanto al por qué de las cosas en lugar de solo hacer un
-tutorial o receta a seguir, es otro de los objetivos principales de estos
-artículos. Me interesa el poder trasmitir un enfoque más profundo sobre lo que
-es el desarrollo de nuestras herramientas, el tratar de aportar al _"¿Por qué
-quiero hacer esto?"_ o el más fundamental _"¿Será esta la mejor forma de abordar
-el problema?_, pues a fin de cuentas, el _sacarle filo_, el ajustar una pieza
-tan central para todos los que trabajamos con textos día a día puede traer
-potencialmente beneficios que disfrutaremos diariamente. Evidentemente no aspiro
-a llegar a una conclusión que sea válida para cada caso de uso, pero sí al menos
-a poder plantear preguntas que considero más fundamentales.
+Generating didactic material that addresses these points and above all with a
+little more depth as to the why of things instead of just making a tutorial or
+recipe to follow, is another of the main objectives of these articles. I am
+interested in conveying a deeper approach to the development of our tools,
+trying to contribute to the _“Why do I want to do this?”_ or the more
+fundamental _“Is this the best way to approach the problem?”_, because at the
+end of the day, _taking the edge off_, adjusting such a central piece for all of
+us who work with text on a daily basis can potentially bring benefits that we
+will enjoy on a daily basis. Obviously, I do not aspire to reach a conclusion
+that is valid for every use case, but at least to be able to raise questions
+that I consider more fundamental than the ones that I have already discussed.
 
 ### Plan de ruta. Qué y cómo.
 
