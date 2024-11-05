@@ -1,0 +1,9 @@
+{% comment %}
+  Detect appearance language and return it through variable "lang"
+{% endcomment %}
+
+{% if site.active_lang %}
+  {% assign lang = site.active_lang %}
+{% else %}
+  {% assign lang = 'en' %}
+{% endif %}

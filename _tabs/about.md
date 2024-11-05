@@ -3,4 +3,8 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-TODO
+{% if site.active_lang == "en" %}
+  TODO
+{% else %}
+  TODO es
+{% endif %}

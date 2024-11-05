@@ -234,30 +234,3 @@ footer {
   background-color: var(--custom-popup-bg);
   color: var(--custom-popup-fg);
 }
-
-// Language toggle
-#language-toggle {
-  align-items: center;
-  background: var(--main-bg);
-  border-radius: 1rem;
-  border: 1px solid var(--search-border-color);
-  display: inline-flex;
-  padding: .2rem .75rem;
-  line-height: 1.45;
-}
-
-#language-toggle a i {
-  margin-right: 0.3rem;
-}
-
-#language-toggle a {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-  color: var(--custom-fgdark);
-  margin: 0;
-}
-
-#language-toggle a:hover {
-  color: var(--custom-magenta);
-}

@@ -21,8 +21,9 @@ title: Eduardo Bray # the main title
 
 tagline: Developer, Musician, Educator # it will display as the subtitle
 
-description: >- # used by seo meta and the atom feed
-  Eduardo Bray's blog about thoughs, arts and software development.
+description: # used by seo meta and the atom feed
+  en: Eduardo Bray's blog about arts, pop culture and software development.
+  es: Blog de Eduardo Bray acerca de arte, cultura pop y desarrollo de software.
 
 url: "https://polirritmico.github.io"
 
