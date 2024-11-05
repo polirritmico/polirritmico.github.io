@@ -2,8 +2,6 @@
 
 source "https://rubygems.org"
 
-gem "github-pages", group: :jekyll_plugins
-
 gem "jekyll-theme-chirpy", "~> 7.1", ">= 7.1.1"
 
 gem "jekyll-polyglot"
