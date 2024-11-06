@@ -19,7 +19,9 @@ timezone: America/Santiago
 
 title: Eduardo Bray # the main title
 
-tagline: Developer, Musician, Educator # it will display as the subtitle
+tagline: # it will display as the subtitle
+  en: Developer, Musician, Educator
+  es: Desarrollador, Músico, Pedagogo
 
 description: # used by seo meta and the atom feed
   en: Eduardo Bray's blog about arts, pop culture and software development.
