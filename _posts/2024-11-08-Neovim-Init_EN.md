@@ -1,6 +1,6 @@
 ---
 title: '(WIP) Neovim Adventures: Let''s start from the init'
-date: '2024-10-24 20:02 -0300'
+date: '2024-11-08 20:02 -0300'
 permalink: /posts/Neovim-Init
 lang: en
 categories:
