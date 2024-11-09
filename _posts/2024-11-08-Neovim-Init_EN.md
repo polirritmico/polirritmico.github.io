@@ -76,7 +76,7 @@ The series will be mainly focused towards:
 - Novice users who are still shipwrecked in the sea of overwhelming abundance
   that nvim offers on how to solve things.
 
-### Prior knowledge
+### Prior Knowledge
 
 Specifically the series will assume some prior knowledge of the following items:
 
@@ -184,7 +184,7 @@ shapes and sculptures_.
 Well, with the editor now open, let's help ourselves and see how to navigate
 through the help.
 
-### Ayuda y ventanas
+## Help and Windows
 
 To open the Neovim help we have to open the `command-line` and execute the
 `help` command.
@@ -293,7 +293,7 @@ we can already read in the help the following message (edited):
 OK, let's generate this file. But how do we close this help window? Of course,
 but taking advantage of the need, let's dig a little bit into the windows.
 
-### Moving between windows
+## Moving between windows
 
 We might intuit that what is showing each window is _the file_, but this is not
 quite true. Neovim/Vim operate under an abstraction called **buffer**. As soon
@@ -302,7 +302,7 @@ as we finish
 When there is more than one window on the current screen, we can change the
 focus with `<C-w>` plus the window address (`h`, `j`, `k` or `l`).
 
-### Paths
+## Paths
 
 In Unix terminology, `~` represents the home directory of our user. For example,
 if our user's name is `foo`, then `~/` represents the `/home/foo/` path on our
@@ -374,7 +374,7 @@ Perfect. Everything is working. Once checked let's clean the file.
 {: .prompt-info }
 <!-- prettier-ignore-end -->
 
-### Our init.lua
+## Our init.lua
 
 How to organize our configuration is a subject that we will deal with in detail
 later on, however in general terms we can mention two options:
@@ -439,7 +439,7 @@ We will review their content in the next release.
 
 ---
 
-# Conclusions
+## Conclusions
 
 We have made little progress, but at the same time covered many elements. Future
 installments will have much more code. For now, by way of conclusion let's list

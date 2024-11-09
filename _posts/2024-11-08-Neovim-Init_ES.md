@@ -192,7 +192,7 @@ todas las formas y esculturas_
 Bueno, con el editor ya abierto, ayudémosnos a nosotros mismos y veamos como
 navegar por la ayuda.
 
-### Ayuda y ventanas
+## Ayuda y ventanas
 
 Para abrir la ayuda de Neovim tenemos que abrir la `command-line` y ejecutar el
 comando `help`.
@@ -304,7 +304,7 @@ OK, generemos este archivo. ¿Pero cómo cerramos esta ventana de ayuda? Por
 supuesto, pero aprovechando la necesidad indaguemos un poco en esto de las
 ventanas.
 
-### Moviendo entre ventanas
+## Moviendo entre ventanas
 
 Podríamos intuir que lo que está mostrando cada ventana es _el archivo_, pero
 esto no es del todo cierto. Neovim/Vim operan bajo una abstracción llamada
@@ -313,7 +313,7 @@ esto no es del todo cierto. Neovim/Vim operan bajo una abstracción llamada
 Cuando hay más de una ventana en la pantalla actual, podemos cambiar el foco con
 `<C-w>` más la dirección de la ventana (`h`, `j`, `k` o `l`).
 
-### Paths
+## Paths
 
 En terminología Unix, `~` representa el directorio home de nuestro usuario. Por
 ejemplo, si nuestro usuario se llama `foo`, entonces `~/` representa la ruta
@@ -387,7 +387,7 @@ Perfecto. Todo funcionando. Una vez comprobado limpiemos el archivo.
 {: .prompt-info }
 <!-- prettier-ignore-end -->
 
-### Nuestro init.lua
+## Nuestro init.lua
 
 El cómo organizar nuestra configuración es un tema que abordaremos en detalle
 más adelante, sin embargo en términos generales podemos mencionar dos opciones:
@@ -452,7 +452,7 @@ Su contenido ya lo revisaremos en la siguiente entrega.
 
 ---
 
-# Conclusiones
+## Conclusiones
 
 Hemos avanzado poco, pero al mismo tiempo abarcado muchos elementos. Las futuras
 entregas tendrán mucho más código. Por ahora, a modo de conclusión enumeremos
