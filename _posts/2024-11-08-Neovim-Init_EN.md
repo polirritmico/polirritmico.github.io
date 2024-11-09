@@ -38,8 +38,8 @@ Generating didactic material that addresses these points and above all with a
 little more depth as to the why of things instead of just making a tutorial or
 recipe to follow, is another of the main objectives of these articles. I am
 interested in conveying a deeper approach to the development of our tools,
-trying to contribute to the _“Why do I want to do this?”_ or the more
-fundamental _“Is this the best way to approach the problem?”_, because at the
+trying to contribute to the _"Why do I want to do this?"_ or the more
+fundamental _"Is this the best way to approach the problem?"_, because at the
 end of the day, _taking the edge off_, adjusting such a central piece for all of
 us who work with text on a daily basis can potentially bring benefits that we
 will enjoy on a daily basis. Obviously, I do not aspire to reach a conclusion
@@ -215,8 +215,8 @@ _Such a waste of space..._
 <!-- prettier-ignore-end -->
 
 The key question here is **What do we want to do?**, and the answer is not
-obvious as it may seem: _“I want the help screen to take up the whole screen and
-not just half of it, so let's set that up”_. Well, yes and no. This is the first
+obvious as it may seem: _"I want the help screen to take up the whole screen and
+not just half of it, so let's set that up"_. Well, yes and no. This is the first
 [x-y trap](https://xyproblem.info/) we face. What we really want is not for the
 help **window** to take up the whole screen, but to be able to read the
 documentation comfortably.
@@ -230,8 +230,8 @@ use cases? We don't know either. Not at least not while we are in this
 familiarization process and certainly not when we barely know how to organize
 and move between windows.
 
-Therefore our first instinct, that of _“I'm going to set the help window to open
-full screen by default”_, obeys the same principle of premature optimization,
+Therefore our first instinct, that of _"I'm going to set the help window to open
+full screen by default"_, obeys the same principle of premature optimization,
 and therefore let's consider it a mistake at this point or at least an
 uninformed decision. Perhaps it is indeed the right setting, but we lack
 sufficient exploration to determine this.
@@ -250,7 +250,7 @@ selected window the only one on the screen.
 > shortcuts
 >
 > `<C-w>o` means to press the `ctrl+w` keys, followed by the `o` key. As a
-> mnemonic aid, we can understand the `<C-w>` as _“window stuff”_ (**w**indows)
+> mnemonic aid, we can understand the `<C-w>` as _"window stuff"_ (**w**indows)
 > and the `o` key as **o**pen (open).
 {: > .prompt-info }
 <!-- prettier-ignore-end -->
@@ -344,7 +344,7 @@ world!_ (Yes, _Hello world_ to configure our editor). We use the following code:
 -- (Comments begin with --)
 
 -- The following function allows us to notify the user with a message:
-vim.notify(“Hello world!”)
+vim.notify("Hello world!")
 ```
 
 <!-- prettier-ignore-start -->
@@ -412,7 +412,7 @@ nvim/
         └── settings.lua
 ```
 
-And for neovim to “read” the `mappings.lua` and `settings.lua` files we use the
+And for neovim to "read" the `mappings.lua` and `settings.lua` files we use the
 `require` function inside our `init.lua`:
 
 ```lua
@@ -449,8 +449,8 @@ the key ideas we have covered:
 - Commands related to windows (`<C-w>`):
   - `<C-w>o` to enlarge a split window (with focus on the window we want to
     enlarge).
-  - `<C-w>` plus the direction of the window to focus to change the “window
-    focus”.
+  - `<C-w>` plus the direction of the window to focus to change the "window
+    focus".
 - Help through the `command-line` (`:help <search>`).
 - Configuration file `:h config`.
 - Function `require`.
