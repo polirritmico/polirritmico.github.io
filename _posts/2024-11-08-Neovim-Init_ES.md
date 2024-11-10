@@ -11,7 +11,7 @@ tags:
   - Linux
   - Software
 description: Primer capítulo de las aventuras en Neovim.
-media_subpath: /assets/img/20241024/
+media_subpath: /assets/img/neovim/
 image: nvim.png
 ---
 # Aventuras en Neovim (WIP)
