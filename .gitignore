@@ -26,3 +26,4 @@ package-lock.json
 _sass/dist
 assets/js/dist
 _posts/*.png
+_posts/*.jpg

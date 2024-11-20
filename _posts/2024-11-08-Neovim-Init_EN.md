@@ -359,7 +359,7 @@ changes and close the current Neovim instance, we can press `:qw` or `<ZZ>`.
 
 After reopening Neovim we have this:
 
-![Hello world](hello-world.png).
+![Hello world](hello-world.png)
 
 Perfect. Everything is working. Once checked let's clean the file.
 
