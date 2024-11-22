@@ -41,9 +41,11 @@ $ rm init.lua
 $ nvim init.lua
 ```
 
+Hermoso, volvimos al paso 1, pero ya no somos los mismos.
+
 ## El plan
 
-Hermoso, volvimos al paso 1, pero ya no somos los mismos. Este es el plan:
+Este es el plan:
 
 ```lua
 require("config.settings")
@@ -51,12 +53,12 @@ require("config.mappings")
 ```
 
 Ya que sabemos lo que hace `require` describir en palabras la intención de estas
-líneas debiese ser un proceso bastante lineal. En concreto, dentro de la carpeta
-`config` vamos a crear los módulos `settings` y `mappings`, e `init.lua` va a
-ser el encargado de llamar o ejecutar ambos módulos. ¿Se nos escapa algo? Pues
-sí, lua estila que los módulos se encuentren dentro del directorio `lua`, de
-modo que este debiese ser el _path_ donde crear nuestros módulos de
-configuración: `nvim/lua/config/`.
+líneas debiese ser un proceso bastante lineal. ¿No? Bueno, no hay problema. En
+concreto, dentro de la carpeta `config` vamos a crear los módulos `settings` y
+`mappings`, e `init.lua` va a ser el encargado de llamar o ejecutar ambos
+módulos. ¿Se nos escapa algo? Pues sí, lua estila que los módulos se encuentren
+dentro del directorio `lua`, de modo que este debiese ser el _path_ donde crear
+nuestros módulos de configuración: `nvim/lua/config/`.
 
 Sin embargo dado que aún no existe ni el directorio `lua`, ni `config`, ni los
 archivos `settings.lua` o `mappings.lua`, si cerramos Neovim en este momento y
@@ -87,7 +89,7 @@ sobre `init.lua`:
 ```
 
 De querer especificar el nombre del archivo, un clásico "guardar cómo" de toda
-la vida, simplemente lo pasamos como parámetro a `write`:
+la vida, simplemente pasamos a `write` la ruta al archivo como parámetro:
 
 ```vim
 :w path/nombre
