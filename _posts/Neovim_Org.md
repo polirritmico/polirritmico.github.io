@@ -1,6 +1,6 @@
 ---
 title: '(WIP) Aventuras en Neovim II: Módulos y Fallbacks'
-date: '2024-11-11 17:45 -0300'
+date: '2024-11-30 17:45 -0300'
 permalink: /posts/Neovim-Modules
 lang: es
 categories:
@@ -14,7 +14,7 @@ description: Segundo capítulo de las aventuras en Neovim.
 media_subpath: /assets/img/neovim/
 image: nvim.png
 ---
-# Aventuras en Neovim II
+# NeoVimturas II
 
 En la entrega anterior abordamos los criterios y nos adentramos un poco en lo
 básico de la configuración, de modo que ahora nos concentraremos principalmente
