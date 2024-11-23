@@ -54,7 +54,7 @@ central para todos los que trabajamos con textos día a día puede traer
 beneficios que potencialmente disfrutaremos a diario. Evidentemente no aspiro a
 llegar a una conclusión que sea válida para cada caso de uso, pero sí al menos a
 plantear preguntas que considero más fundamentales y que por la ansiedad de
-tener todo funcionando _ahora ya_ se pierden entre la bruma de posibilidades.
+tener todo funcionando _"ahora ya"_ se pierden entre la bruma de posibilidades.
 
 ### Plan de ruta. Qué y cómo.
 
@@ -74,6 +74,8 @@ en segundo lugar, asumo que **no quieres perder tiempo reinventando la rueda**.
 Que no nos ocurra, que por ahorrarnos una lectura de minutos perdamos horas o
 incluso _días_ en torno problemas ya resueltos y al alcance de una función, flag
 o parámetro.
+
+![Desde siempre](medieval_tools.jpg)
 
 La serie estará principalmente enfocada hacia:
 
