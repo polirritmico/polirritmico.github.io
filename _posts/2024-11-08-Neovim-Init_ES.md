@@ -25,15 +25,18 @@ adaptadas) que me han llevado a una organización bastante estable y flexible de
 mi entorno de desarrollo junto a una serie de criterios que quiero compartir a
 través de la presente serie de artículos.
 
-No todas estas ideas han sobrevivido, la gran mayoría de hecho actualmente solo
-existen entre _commits_ olvidados de mi repositorio de configuraciones. En la
-búsqueda de código manejable y legible, y tras observar cómo quedaban relegadas
-a líneas de código sin utilizar, no superaron la limpieza de turno, no se
-integraron de forma orgánica en mi flujo de trabajo. Eran simplemente malas
-ideas bien ejecutadas. Sin embargo, el proceso exploratorio en base a la gran
-variedad de posibilidades que nos ofrece Neovim, también permite el desarrollar
-o adquirir un aprendizaje realmente valioso al enfrentar nuevos desarrollos. El
-poder manipular el comportamiento de esta herramienta haciéndola propia.
+No todas estas ideas han sobrevivido; de hecho, la gran mayoría solo existe
+entre _commits_ olvidados en mi repositorio de configuraciones. Su destino fue
+consecuencia de no haberse integrado de forma orgánica a mi flujo de trabajo.
+Quedaban relegadas a líneas de código que nunca utilizaba, y peor aún, olvidaba
+que existían. Ergo, no sobrevivieron a la limpieza de turno, siempre ávida de
+purgar código innecesario en pos de evitar ser morada y caldo de cultivo de los
+inevitables _bugs_ al acecho. En el fondo, eran simplemente malas ideas bien
+ejecutadas, y de esas ya tenemos bastantes (_yo os miro, stalebots_). Sin
+embargo, el proceso exploratorio en base a la gran variedad de posibilidades que
+nos ofrece Neovim, también permite el desarrollar o adquirir un aprendizaje
+realmente valioso al enfrentar nuevas implementaciones. Es el poder manipular el
+comportamiento de esta herramienta, haciéndola verdaderamente propia.
 
 El compartir este aprendizaje y sus conclusiones creo que puede ser algo
 bastante interesante, en especial para aquellos que recién comienzan con su
