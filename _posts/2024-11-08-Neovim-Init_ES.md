@@ -103,16 +103,21 @@ puntos:
 - **Movimientos Vim:** Sí, editar un string mediante `ci"` es hermoso, pero ya
   se ha escrito demasiado al respecto por lo que principalmente serán
   mencionados.
-- **Vimscript:** Ni en los días de Vim nunca me agradó y siempre lo encontré
-  demasiado específico, pero entendía su necesidad. A día de hoy esta sensación
-  personal no solo se ha perdurado, sino que tras la incorporación de Lua, se ha
-  acrecentado y solo diré que prefiero aprender Lisp y cambiarme a Emacs a
-  adentrarme en más de lo necesario en sus intrincaciones.
+- **Vimscript:** Nunca me agradó; ni siquiera en los días de Vim. Siempre lo
+  encontré demasiado específico y enrevesado, pero entendía su necesidad. A día
+  de hoy, simplemente no me hace sentido y Vim9script incluso me parece un
+  error. Sin embargo, mientras Vim siga siendo el estándar por defecto en el
+  ecosistema GNU/Linux (preinstalado en muchas distribuciones), Vimscript
+  seguirá siendo relevante; no obstante, Lua simplemente es una mejor solución.
+  Y creo que la explosión de plugins que hemos visto desde su adopción en Neovim
+  me da la razón. Quizás un buen resumen de mi opinión al respecto es que
+  preferiría usar ese tiempo en aprender Lisp y probar Emacs que a adentrarme
+  más de lo necesario en sus intrincaciones.
 - **Conceptos de programación:** Utilizaré conceptos de programación tales como
-  función, variable, tablas, API, etc., pero al mismo tiempo trataré de explicar
-  a lo que me refiero para los más alejados o novatos con el código. Por lo
-  demás, Lua es un lenguaje bastante sencillo, e incluso amigable en mi opinión,
-  de modo que es una perfecta oportunidad para adentrarse un poco en la
+  función, variable, tablas, _string_, API, etc., pero al mismo tiempo trataré
+  de explicar a lo que me refiero para los más alejados o novatos con el código.
+  Por lo demás, Lua es un lenguaje bastante sencillo, e incluso amigable en mi
+  opinión, de modo que es una perfecta oportunidad para adentrarse un poco en la
   programación con una voz amiga.
 - **Cosas Windows:** Lo siento, lo odio. Hace años que no uso ese sistema
   operativo (tiempos oscuros) y creo que si los PC vinieran con Linux por
@@ -121,7 +126,7 @@ puntos:
 
 No obstante los puntos anteriormente mencionados, trataré de incluir recuadros
 de ayuda y _tips_ que provean cierta información que considere valiosa o útil de
-manejar sobre estos temas.
+manejar sobre estos temas dentro del contexto.
 
 ### Metodología
 
