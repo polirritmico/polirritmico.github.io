@@ -67,6 +67,8 @@ _A priori_, la serie estará compuesta por los siguientes artículos:
 
 ### A quién
 
+![Afilando](medieval_tools.jpg)
+
 Si estás leyendo esto asumo dos cosas. Primero, que **te interesa** —_incluso
 entretiene_— el ajuste de tus herramientas de trabajo, cual carpintero afilando
 y afinando el filo de su cepillo hasta dar con el sonido y viruta perfectos. Y
@@ -74,8 +76,6 @@ en segundo lugar, asumo que **no quieres perder tiempo reinventando la rueda**.
 Que no nos ocurra, que por ahorrarnos una lectura de minutos perdamos horas o
 incluso _días_ en torno problemas ya resueltos y al alcance de una función, flag
 o parámetro.
-
-![Desde siempre](medieval_tools.jpg)
 
 La serie estará principalmente enfocada hacia:
 
@@ -146,6 +146,27 @@ inicio, nuestro `init.lua`.
 
 **¡Manos a la obra!**
 
+<!-- prettier-ignore-start -->
+> **Es importante matizar nuestro proceso de aprendizaje**:
+>
+> Un consejo que personalmente me sirvió mucho para una transición exitosa a
+> Neovim y que siempre trataré de compartir, es el de no desechar completamente
+> el editor con el que ya estamos acostumbrados mientras nos encontremos en este
+> estado de aprendizaje inicial.
+>
+> Tras un rato trabajando en Neovim, ya estamos cansados, frustrados o
+> simplemente todo se siente cuesta arriba, o si de pronto tenemos que resolver
+> situaciones inmediatamente o responder a fechas límite; lo mejor en estos
+> casos sin lugar a dudas es volver a lo conocido y seguir aprendiendo en otro
+> momento. De esta forma evitamos frustraciones (completamente válidas) y
+> mejoramos nuestra capacidad de comprensión cuando realmente deseamos aprender.
+>
+> En contraste a otros editores, Neovim supone un paradigma completamente
+> diferente, de modo que puede ser bastante abrumador en ciertos momentos el
+> abordarlo todo al mismo tiempo.
+{: .prompt-warning }
+<!-- prettier-ignore-end -->
+
 ---
 
 ## Init
@@ -160,27 +181,6 @@ no sepamos cómo abordar alguna situación puntual. Mientras más tiempo estemos
 Neovim, más rápido nos familiarizaremos con su flujo y terminología; el aprender
 a navegar entre **ventanas** y **buffers** es algo que mientras antes
 familiaricemos mejor.
-
-<!-- prettier-ignore-start -->
-> **Es importante matizar nuestro proceso de aprendizaje**:
->
-> Un consejo que personalmente me sirvió mucho para una transición exitosa a
-> Neovim y que siempre trataré de compartir, es el de no desechar completamente
-> el editor con el que ya estamos familiarizados mientras nos encontremos en
-> este estado de aprendizaje.
->
-> Si después de un rato trabajando en Neovim, ya estamos cansados o frustrados y
-> todo se siente cuesta arriba, o si de pronto tenemos que resolver situaciones
-> inmediatamente o responder a fechas límite; lo mejor en estos casos sin lugar
-> a dudas es volver a lo conocido y seguir aprendiendo en otro momento. De esta
-> forma evitamos frustraciones (completamente válidas) y mejoramos nuestra
-> capacidad de comprensión cuando realmente deseamos aprender.
->
-> En contraste a otros editores, Neovim supone un paradigma completamente
-> diferente, de modo que puede ser bastante abrumador en ciertos momentos el
-> abordarlo todo al mismo tiempo.
-{: .prompt-warning }
-<!-- prettier-ignore-end -->
 
 Entonces, a levantar nuestra terminal favorita
 ([Konsole](https://konsole.kde.org/) en mi caso) y ejecutar Neovim:

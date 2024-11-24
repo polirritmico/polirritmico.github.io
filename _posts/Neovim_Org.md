@@ -52,19 +52,20 @@ require("config.settings")
 require("config.mappings")
 ```
 
-Ya que sabemos lo que hace `require` describir en palabras la intención de estas
-líneas debiese ser un proceso bastante lineal. ¿No? Bueno, no hay problema. En
-concreto, dentro de la carpeta `config` vamos a crear los módulos `settings` y
-`mappings`, e `init.lua` va a ser el encargado de llamar o ejecutar ambos
-módulos. ¿Se nos escapa algo? Pues sí, lua estila que los módulos se encuentren
-dentro del directorio `lua`, de modo que este debiese ser el _path_ donde crear
-nuestros módulos de configuración: `nvim/lua/config/`.
+Ya conocemos lo que hace `require`, de modo que describir en palabras la
+intención de estas líneas debiese ser un relativamente bastante lineal. ¿No?
+Bueno, no hay problema. En concreto, dentro de la carpeta `config` vamos a crear
+los módulos `settings` y `mappings`, e `init.lua` va a ser el encargado de
+llamar o ejecutar ambos módulos. ¿Se nos escapa algo? Pues sí, lua estila que
+los módulos se encuentren dentro del directorio `lua`, de modo que este debiese
+ser el _path_ donde crear nuestros módulos de configuración: `nvim/lua/config/`.
 
-Sin embargo dado que aún no existe ni el directorio `lua`, ni `config`, ni los
-archivos `settings.lua` o `mappings.lua`, si cerramos Neovim en este momento y
-lo volvemos a abrir nos daría la bienvenida un hermoso error y Neovim se
-quedaría con la configuración por defecto, o más precisamente, la configuración
-que alcance a ejecutar hasta antes del error.
+Sin embargo, si es que escribimos los cambios en el buffer al archivo, dado que
+aún no existe ni el directorio `lua`, ni `config`, ni los archivos
+`settings.lua` o `mappings.lua`, si cerramos Neovim y lo volviéramos a abrir nos
+daría la bienvenida un hermoso error y Neovim se quedaría con la configuración
+por defecto, o más precisamente, la configuración que alcance a ejecutar hasta
+antes del error.
 
 El objetivo de esta entrega es generar un módulo para robustecer la carga de
 nuestra propia configuración a modo de evitar que nos disparemos en el pie con
