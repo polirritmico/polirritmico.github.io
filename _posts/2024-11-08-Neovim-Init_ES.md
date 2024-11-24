@@ -90,7 +90,7 @@ La serie estará principalmente enfocada hacia:
   ofrece nvim sobre cómo resolver las cosas.
 
 Por lo mismo quizás iré más lento de lo que a algunos lectores les gustaría, no
-obstante evitare repeticiones más allá de las fundamentales.
+obstante evitaré repeticiones más allá de las fundamentales.
 
 ### Conocimiento previo
 
