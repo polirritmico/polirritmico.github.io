@@ -1,6 +1,6 @@
 ---
 title: '(WIP) Aventuras en Neovim II: Módulos y Fallbacks'
-date: '2024-11-30 17:45 -0300'
+date: '2024-11-24 17:45 -0300'
 permalink: /posts/Neovim-Modules
 lang: es
 categories:
