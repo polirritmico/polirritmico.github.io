@@ -52,30 +52,31 @@ require("config.settings")
 require("config.mappings")
 ```
 
-Ya conocemos lo que hace `require`, de modo que describir en palabras la
-intención de estas líneas debiese ser un relativamente bastante lineal. ¿No?
-Bueno, no hay problema. En concreto, dentro de la carpeta `config` vamos a crear
-los módulos `settings` y `mappings`, e `init.lua` va a ser el encargado de
-llamar o ejecutar ambos módulos. ¿Se nos escapa algo? Pues sí, lua estila que
-los módulos se encuentren dentro del directorio `lua`, de modo que este debiese
-ser el _path_ donde crear nuestros módulos de configuración: `nvim/lua/config/`.
+Ya conocemos lo que hace `require`, de modo que ya podríamos describir en
+palabras las intenciones de esas líneas. ¿No? Bueno, no hay problema. En
+concreto, dentro de la carpeta `config` vamos a crear los módulos `settings` y
+`mappings`, e `init.lua` va a ser el encargado de llamar o ejecutar ambos
+módulos. ¿Se nos escapa algo? Pues sí, Lua estila que los módulos se encuentren
+dentro del directorio `lua`, de modo que este debiese ser el _path_ donde crear
+nuestros módulos de configuración: `nvim/lua/config/settings.lua` y
+`nvim/lua/config/mappings.lua`.
 
-Sin embargo, si es que escribimos los cambios en el buffer al archivo, dado que
-aún no existe ni el directorio `lua`, ni `config`, ni los archivos
-`settings.lua` o `mappings.lua`, si cerramos Neovim y lo volviéramos a abrir nos
-daría la bienvenida un hermoso error y Neovim se quedaría con la configuración
-por defecto, o más precisamente, la configuración que alcance a ejecutar hasta
-antes del error.
-
-El objetivo de esta entrega es generar un módulo para robustecer la carga de
-nuestra propia configuración a modo de evitar que nos disparemos en el pie con
-un cambio que introduzca un fallo.
+Evidentemente, mientras no exista esa ruta ni esos archivos, el requerir los
+módulos va a producir un error al momento de iniciar una nueva instancia de
+Neovim, lo que interrumpiría la configuración hasta el punto del primer fallo.
+En esa situación tendríamos que arreglar el problema con la configuración por
+defecto, o peor aún, dependiendo la naturaleza del error podríamos estar
+teniendo mensajes de error a cada rato. El objecto de esta entrega es
+precisamente el abordar este problema creando un módulo para robustecer un poco
+la carga de nuestro propia configuración a modo de evitar que nos disparemos en
+el pie y tengamos que estar arreglando cosas con
+[Nano](https://nano-editor.org/) u otro editor.
 
 Pero estamos lejos todavía; de momento esta es nuestra tarea:
 
 1. Escribir los cambios en `init.lua`.
 2. Crear los subdirectorios `lua` y `lua/config`.
-3. Crear los módulos `settings` y `mappings` dentro de este _path_.
+3. Crear los módulos `settings` y `mappings` dentro de esa ruta.
 4. Revisar que los módulos de ejecuten correctamente
 
 ### Buffers, ventanas y pestañas
@@ -96,13 +97,25 @@ la vida, simplemente pasamos a `write` la ruta al archivo como parámetro:
 :w path/nombre
 ```
 
-Conceptualmente, Neovim y Vim trabajan con la idea de `buffers`, que se refiere
-al texto o datos de un fichero en memoria. Lo que hace el comando `write` es
-simplemente escribir el contenido del buffer actual en un archivo.
+Si pasamos solo el nombre del archivo, se guarda en el `cwd` o _current working
+directory_, que no es otra cosa que el directorio donde hemos ejecutado Neovim o
+al que hayamos cambiado con `:cd`.
 
-Desde ya es importante definir estos conceptos, y como no, la documentación hace
-un excelente trabajo al respecto. Si buscamos `:h buffers` podemos leer el
-siguiente resumen:
+<!-- prettier-ignore-start -->
+> En Unix, para referirnos al mismo directorio donde estamos se usa `./`, y para
+> referirnos al directorio que contiene el directorio actual, o el directorio
+> padre, se utiliza `../`.
+{: .prompt-warning }
+<!-- prettier-ignore-end -->
+
+Conceptualmente, Neovim y Vim trabajan con la idea de `buffers`, que se refiere
+al texto o datos de un fichero **en memoria**. Lo que hace el comando `write` es
+simplemente escribir el contenido del buffer actual desde la memoria a un
+archivo en el hardware.
+
+Desde ya es importante definir y diferenciar los conceptos de `buffer`, `window`
+y `tab`; y como no, la documentación hace un excelente trabajo al respecto. Si
+buscamos `:h buffers` podemos leer el siguiente resumen:
 
 > **Summary:**
 >
@@ -117,15 +130,20 @@ podemos entender de la siguiente forma:
 
 - El `buffer` es el texto que extrae Neovim después de leer cada archivo y sobre
   el cual hacemos todas nuestras ediciones.
-- Las `ventanas` son lo que vemos en pantalla, son como cámaras que nos permiten
-  filmar el contenido de un `buffer` específico. Podemos controlar qué "filma"
-  cada una de las ventanas e incluso podemos tener más de una "apuntando" al
-  mismo texto-buffer pero en secciones independientes.
-
-  ![Múltiples ventanas](image.png)
-
+- Las `ventanas` son lo que vemos en pantalla. "Cámaras" que nos permiten ver el
+  contenido de un `buffer` específico. Podemos controlar a qué "apunta" cada una
+  de las ventanas e incluso podemos tener más de una "apuntando" al mismo
+  texto-buffer en ventanas independientes.
 - Y finalmente los `tabs` o pestañas, que son simplemente una colección de
   ventanas.
+
+<!-- prettier-ignore-start -->
+![Múltiples ventanas](windows_and_buffers.png)
+_En la imagen vemos 3 ventas. La superior izquierda muestra el contenido del
+buffer del archivo `init.lua`, y tanto la inferior como la derecha muestran el
+contenido del buffer `utils.loaders.lua` pero "apuntando" a distintas secciones
+del texto._
+<!-- prettier-ignore-end -->
 
 #### Diferencias prácticas
 
