@@ -134,16 +134,8 @@ podemos entender de la siguiente forma:
   contenido de un `buffer` específico. Podemos controlar a qué "apunta" cada una
   de las ventanas e incluso podemos tener más de una "apuntando" al mismo
   texto-buffer en ventanas independientes.
-- Y finalmente los `tabs` o pestañas, que son simplemente una colección de
+- Y finalmente las `tabs` o pestañas, que son simplemente una colección de
   ventanas.
-
-<!-- prettier-ignore-start -->
-![Múltiples ventanas](windows_and_buffers.png)
-_En la imagen vemos 3 ventas. La superior izquierda muestra el contenido del
-buffer del archivo `init.lua`, y tanto la inferior como la derecha muestran el
-contenido del buffer `utils.loaders.lua` pero "apuntando" a distintas secciones
-del texto._
-<!-- prettier-ignore-end -->
 
 #### Diferencias prácticas
 
@@ -152,6 +144,15 @@ a buffers, podemos cambiar en la misma ventana rápidamente de un buffer a otro 
 en caso necesario podemos dividir la pestaña actual en múltiples ventanas para
 ver muchos archivos distintos al mismo tiempo, o incluso secciones distintas de
 de un mismo archivo (útil cuando trabajamos con archivos grandes).
+
+![Múltiples ventanas](windows_and_buffers.png)
+
+En la imagen vemos 3 ventas:
+
+- La superior izquierda muestra el contenido del buffer del archivo `init.lua`
+- Tanto la inferior izquierda y la pantalla a la derecha muestran el contenido
+  del buffer `utils.loaders.lua` pero "apuntando" a distintas secciones del
+  texto.
 
 ### Manipulación de carpetas y archivos
 
