@@ -31,12 +31,18 @@ consecuencia de no haberse integrado de forma orgánica a mi flujo de trabajo.
 Quedaban relegadas a líneas de código que nunca utilizaba, y peor aún, olvidaba
 que existían. Ergo, no sobrevivieron a la limpieza de turno, siempre ávida de
 purgar código innecesario en pos de evitar ser morada y caldo de cultivo de los
-inevitables _bugs_ al acecho. En el fondo, eran simplemente malas ideas bien
-ejecutadas, y de esas ya tenemos bastantes (_yo os miro, stalebots_). Sin
-embargo, el proceso exploratorio en base a la gran variedad de posibilidades que
-nos ofrece Neovim, también permite el desarrollar o adquirir un aprendizaje
-realmente valioso al enfrentar nuevas implementaciones. Es el poder manipular el
-comportamiento de esta herramienta, haciéndola verdaderamente propia.
+inevitables _bugs_ al acecho. En el fondo, eran simplemente malas ideas
+relativamente bien ejecutadas, y de esas ya tenemos bastantes (por ejemplo,
+_stalebots y compañía_).
+
+Sin embargo, este proceso exploratorio en base a la gran variedad de
+posibilidades que nos ofrece Neovim, también nos permite el desarrollar o
+adquirir un aprendizaje realmente valioso al enfrentar estas implementaciones;
+nos permite el poder manipular fácilmente el comportamiento de la herramienta, y
+al mismo tiempo, nos enseña a estar siempre atentos a nuestros propios patrones
+de uso. Con el tiempo, esta actitud mental convierten al editor en una
+herramienta verdaderamente propia y potencialmente la mejor experiencia de
+desarrollo personalizada, o al menos la más cómoda en su uso.
 
 El compartir este aprendizaje y sus conclusiones creo que puede ser algo
 bastante interesante, en especial para aquellos que recién comienzan con su
@@ -61,9 +67,10 @@ tener todo funcionando _"ahora ya"_ se pierden entre la bruma de posibilidades.
 _A priori_, la serie estará compuesta por los siguientes artículos:
 
 > 1. Inicio y guía (este artículo)
-> 2. Teclas y criterios
-> 3. Organización y manejo de errores
-> 4. Utilidades y personalización
+> 2. Modulos y fallbacks
+> 3. Teclas y criterios
+> 4. Organización y manejo de errores
+> 5. Utilidades y personalización
 
 ### A quién
 
@@ -85,9 +92,11 @@ La serie estará principalmente enfocada hacia:
 - Aquellos que ya han escrito su configuración pero no les termina de convencer
   (problemas de encapsulación, rendimiento, comportamiento, etc.)
 - Aquellos entusiastas que siempre están buscando formas e ideas de optimización
-  o solo puntos de vista diferentes.
+  o solo puntos de vista diferentes, y que estén dispuestos o tengan la
+  paciencia suficiente para saltartse las secciones demasiado básicas.
 - Usuarios nóveles que aún naufragan en el mar de sobrecogedora abundancia que
-  ofrece nvim sobre cómo resolver las cosas.
+  ofrece nvim sobre cómo resolver las cosas, en busca de alguna guía que les
+  señale algun norte o criterios.
 
 Por lo mismo quizás iré más lento de lo que a algunos lectores les gustaría, no
 obstante evitaré repeticiones más allá de las fundamentales.
@@ -101,32 +110,46 @@ puntos:
   Por completitud las mencionaré en cualquier caso, al menos para establecer una
   nomenclatura común.
 - **Movimientos Vim:** Sí, editar un string mediante `ci"` es hermoso, pero ya
-  se ha escrito demasiado al respecto por lo que principalmente serán
-  mencionados.
-- **Vimscript:** Nunca me agradó; ni siquiera en los días de Vim. Siempre lo
-  encontré demasiado específico y enrevesado, pero entendía su necesidad. A día
-  de hoy, simplemente no me hace sentido y Vim9script incluso me parece un
-  error. Sin embargo, mientras Vim siga siendo el estándar por defecto en el
-  ecosistema GNU/Linux (preinstalado en muchas distribuciones), Vimscript
-  seguirá siendo relevante; no obstante, Lua simplemente es una mejor solución.
-  Y creo que la explosión de plugins que hemos visto desde su adopción en Neovim
-  me da la razón. Quizás un buen resumen de mi opinión al respecto es que
-  preferiría usar ese tiempo en aprender Lisp y probar Emacs que a adentrarme
-  más de lo necesario en sus intrincaciones.
+  se ha escrito demasiado al respecto por lo que principalmente serán utilizados
+  y anotados, pero no explicados.
 - **Conceptos de programación:** Utilizaré conceptos de programación tales como
   función, variable, tablas, _string_, API, etc., pero al mismo tiempo trataré
   de explicar a lo que me refiero para los más alejados o novatos con el código.
   Por lo demás, Lua es un lenguaje bastante sencillo, e incluso amigable en mi
   opinión, de modo que es una perfecta oportunidad para adentrarse un poco en la
   programación con una voz amiga.
+
+<!-- prettier-ignore-start -->
+> No obstante los puntos anteriormente mencionados, trataré de incluir recuadros
+> de ayuda y _tips_ que provean cierta información que considere valiosa o útil de
+> manejar sobre estos temas dentro del contexto.
+{: .prompt-tip }
+<!-- prettier-ignore-end -->
+
+### Lo que no...
+
+En la serie no abordaré los siguientes puntos:
+
+<!-- prettier-ignore-start -->
+- **Vimscript:** Nunca me agradó; ni siquiera en los días de Vim. Siempre lo
+  encontré demasiado específico y enrevesado, pero entendía su necesidad. A día
+  de hoy, simplemente no me hace sentido y
+  [Vim9script incluso me parece un error](https://github.com/vim/vim/blob/be4e01637e71c8d5095c33b9861fd70b41476732/README_VIM9.md).
+  Sin embargo, mientras Vim siga siendo el estándar por defecto en el ecosistema
+  GNU/Linux (preinstalado en muchas distribuciones), Vimscript seguirá siendo
+  relevante; no obstante, Lua simplemente es una mejor solución. Y creo que la
+  explosión de plugins que hemos visto desde su adopción en Neovim me da la
+  razón. Quizás un buen resumen de mi opinión al respecto es que preferiría usar
+  ese tiempo en aprender Lisp y probar Emacs que a adentrarme más de lo
+  necesario en sus intrincaciones.
+  > ![Vimscript](vimscript.png)
+  > _Vimscript "9true"_
+
 - **Cosas Windows:** Lo siento, lo odio. Hace años que no uso ese sistema
   operativo (tiempos oscuros) y creo que si los PC vinieran con Linux por
   defecto de las tiendas, la informática en general se encontraría en un estado
   de mayor salubridad.
-
-No obstante los puntos anteriormente mencionados, trataré de incluir recuadros
-de ayuda y _tips_ que provean cierta información que considere valiosa o útil de
-manejar sobre estos temas dentro del contexto.
+<!-- prettier-ignore-end -->
 
 ### Metodología
 
@@ -178,14 +201,15 @@ inicio, nuestro `init.lua`.
 
 _Volver al principio_
 
-Para comenzar esta serie de aventuras, creo que lo mejor es hacerlo en partida
-doble, es decir, el aprender acerca de cuál es la estructura de directorios y
-ficheros que propone Neovim, y al mismo tiempo, el aprender a cómo utilizar la
-documentación para evitar tener que estar abriendo el navegador web cada vez que
-no sepamos cómo abordar alguna situación puntual. Mientras más tiempo estemos en
-Neovim, más rápido nos familiarizaremos con su flujo y terminología; el aprender
-a navegar entre **ventanas** y **buffers** es algo que mientras antes
-familiaricemos mejor.
+Probablemente la mejor forma de aprender a utilizar Neovim es utilizando Neovim.
+Con esto me refiero a evitar el abrir a cada duda el navegador para preguntarle
+a Google, el foro de turno o a la IA cualquier duda que tengamos, sino busquemos
+las respuestas en la documentación a través de la navegación al 100% con nuestro
+teclado.
+
+Por ello, propongo la siguiente tarea: aprendamos y familiaricémonos con la
+navegación entre **ventanas** y **buffers**, mientras buscamos información
+acerca del sistema de configuración de Neovim.
 
 Entonces, a levantar nuestra terminal favorita
 ([Konsole](https://konsole.kde.org/) en mi caso) y ejecutar Neovim:
@@ -227,6 +251,9 @@ comando `help`: `:help`.
 > 1. Abrir la `command-line` (en **modo normal**, pulsar la tecla `:`).
 > 2. Teclear el comando `help` (opcionalmente podemos escribir solo `h`).
 > 3. Pulsar `<CR>` (la tecla `enter`)
+>
+> Aunque obvia de momento, esta información nos será útil más adelante, cuando
+> necesitemos definir las acciones de nuestro `keymaps` personalizados.
 {: .prompt-info }
 <!-- prettier-ignore-end -->
 
