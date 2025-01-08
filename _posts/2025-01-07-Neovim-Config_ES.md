@@ -407,7 +407,7 @@ dentro?
 
 Pues fallaría, y todo lo que hemos construido estaría de adorno.
 
-![Ouroboros](ouroboros.png)
+![Ouroboros](ouroboros.jpg)
 
 Pero tranquilidad, este no es como el típico artículo en Medium que te abandona
 al pensar un poco por nuestra cuenta y salirnos unos milímetros de su marco
