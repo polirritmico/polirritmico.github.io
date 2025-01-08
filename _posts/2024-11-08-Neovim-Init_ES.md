@@ -203,9 +203,9 @@ _Volver al principio_
 
 Probablemente la mejor forma de aprender a utilizar Neovim es utilizando Neovim.
 Con esto me refiero a evitar el abrir a cada duda el navegador para preguntarle
-a Google, el foro de turno o a la IA cualquier duda que tengamos, sino busquemos
-las respuestas en la documentación a través de la navegación al 100% con nuestro
-teclado.
+a Google, el foro de turno o a la IA cualquier duda que tengamos, sino,
+busquemos las respuestas en la documentación a través de la navegación al 100%
+con nuestro teclado.
 
 Por ello, propongo la siguiente tarea: aprendamos y familiaricémonos con la
 navegación entre **ventanas** y **buffers**, mientras buscamos información
