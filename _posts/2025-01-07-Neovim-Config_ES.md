@@ -100,8 +100,8 @@ vim.opt.langmap = "ñ:,Ñ\\;"
 
 > Para los curiosos, en los teclados ISO-ES, a la derecha de la tecla `l` está
 > la tecla `ñ` y no `;`. De modo que con ese ajuste no solo habilito la tecla
-> `ñ` en el modo normal, sino que la configuro a "`:`" en lugar del "`;`". Un
-> 2x1 (habilitar la tecla `ñ` e invertir `;` con `:`).
+> `ñ` en el modo normal, sino que la configuro a `:` en lugar del `;`. Un 2x1
+> (habilitar la tecla `ñ` e invertir `;` con `:`).
 >
 > ![Teclado ISO-ES](iso-es.png)
 
@@ -424,16 +424,16 @@ Pues fallaría, y todo lo que hemos construido estaría de adorno.
 
 ## ¿De vuelta al principio?
 
+No. Este no es como el típico artículo por subscripción en _Medium_ que nos
+abandona al pensar un poco por nuestra cuenta y salirnos unos milímetros de su
+marco principal (😗🎶). Recordemos que ya tenemos nuestro módulo `UtilsLoader`
+funcionando y por lo tanto no queda más que aplicar nuestro `loader` para, en
+pleno estilo _Inception_, cargar el propio `utils`.
+
 <!-- prettier-ignore-start -->
 ![Ouroboros](ouroboros.jpg)
-_Toca comernos la cola_
+_Cargando el cargador del cargador_
 <!-- prettier-ignore-end -->
-
-¡Tranquilidad! Este no es como el típico artículo por subscripción en _Medium_
-que nos abandona al pensar un poco por nuestra cuenta y salirnos unos milímetros
-de su marco principal (😙🎶). Recordemos que ya tenemos nuestro módulo
-`UtilsLoader` funcionando y por lo tanto no queda más que aplicar nuestro
-`loader` para, en pleno estilo _Inception_, cargar el propio `utils`.
 
 Este es el contenido de mi archivo `utils/init.lua` que se encarga de incorporar
 los distintos módulos en uno (editado para no distraernos):
@@ -457,7 +457,7 @@ De la misma forma que en nuestro `init` principal hemos reemplazado los llamados
 de `require` con los de nuestro propio módulo, aquí podemos hacer lo mismo e
 incluso ir un poco más allá agregando _la carga de los cargadores_.
 
-Lo primero es cargar nuestro módulo `loaders` y reemplazar los llamados a
+Lo primero, es cargar nuestro módulo `loaders` y reemplazar los llamados a
 `require`:
 
 ```lua
@@ -499,19 +499,18 @@ return Utils
 ```
 
 <!-- prettier-ignore-start -->
-Esta vez dejaré el código directamente en el módulo fuera de una functión, pero
-si quieren pueden enmarcarlo dentro de una función en cuyo caso recuerden hacer
-el llamado correspondiente.
+> Esta vez dejaré el código directamente en el módulo, pero si quieren pueden
+> crear una función. En ese caso recuerden hacer el llamado correspondiente.
 {: .prompt-info }
 <!-- prettier-ignore-end -->
 
 ¡Excelente! Ahora tenemos todas nuestras cargas protegidas y finalmente tenemos
-nuestros propios zapatos blindados a prueba de errores y alardes de propia
-torpeza.
+nuestros propios zapatos blindados a prueba de errores.
 
 Si me permiten, ahora haré una pequeña refactorización para agrupar la carga de
-módulos en una única función (excluyendo `loaders` por supuesto) para hacer la
-carga del resto de los módulos de `utils` explícita.
+módulos en una única función (excluyendo `loaders` por supuesto) y separar los
+pasos de cargar `utils`, que solo cargaría los `loaders` del resto de módulos de
+utilidades:
 
 ```lua
 ---A collection of custom helper functions.
@@ -542,10 +541,14 @@ end
 return Utils
 ```
 
-Hermoso. Con esta función de `load_utils`, a futuro podremos agregar fácilmente
-parámetros a la carga de nuestras utilidades. Por ejemplo, añadir algún
-profiler, levantar una sesión DAP o simplemente evitar la carga de ciertos
-módulos en determinados contextos.
+Hermoso.
+
+Con esto, debemos recordar que ahora además de usar `require("utils")` debemos
+inicializar el módulo con `require("utils").load_utils()`. Además, con esta
+función de `load_utils`, a futuro podremos agregar fácilmente parámetros a la
+carga de nuestras utilidades. Por ejemplo, añadir algún profiler, levantar una
+sesión DAP o simplemente evitar la carga de ciertos módulos en determinados
+contextos.
 
 Ahora sólo queda ajustar nuestro `init.lua` y a disfrutar:
 
@@ -569,10 +572,12 @@ presentadas sean de utilidad especialmente para aquellos, que temerosos de
 arruinar su configuración, dejan de explorar las opciones que nos ofrece este
 fantástico "editor".
 
+¡Suerte!
+
 ---
 
-Pueden ver mi implementación de esta técnica en mi repositorio de
-[configuración](https://github.com/polirritmico/neovim.conf). Es básicamente lo
-mismo, pero con ciertos añadidos (como lidiar con specs de lazy y funcionalidad
-de debugging).
+Si les da curiosidad, utilizo esta técnica en mi configuración de modo que
+pueden revisarla [aquí](https://github.com/polirritmico/neovim.conf). Es
+básicamente lo mismo que he expuesto aquí, pero con ciertos añadidos como lidiar
+con specs de lazy y opciones de debugging.
 
