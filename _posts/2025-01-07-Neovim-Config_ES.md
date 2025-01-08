@@ -261,18 +261,14 @@ end
 ¿Por qué cargamos _toda_ la configuración fallback y no sólo lo que ha fallado?
 
 Ese fue mi primer enfoque, pero dependiendo lo que tengamos tanto en `settings`
-como en `mappings` la configuración podría quedar en un estado inestable, por
-ejemplo, si asociamos algún atajo con alguna función de `utils` o en base a un
-setting específigo.
+como en `mappings` la configuración podría quedar en un estado indeterminado,
+por ejemplo, si asociamos algún atajo con alguna función de `utils` o en base a
+un setting específigo.
 
 En segundo lugar y más importante, no perdamos el foco. El objetivo aquí es
 detectar que ha habido un problema y tener un entorno relativamente cómodo para
 solucionarlo, no el tener una instancia de Neovim que funcione con la mayor
 cantidad de features posibles.
-
-También vale la pena añadir, el no menos relevante punto de que al simplificar
-la lógica también reducimos la cantidad de código a mantener y con ello todos
-los beneficios que ello implica (performance, mantenibilidad, legibilidad, etc).
 
 En fin, con `load_config` y `check_errors` ya tenemos la funcionalidad básica
 que buscábamos. No obstante, vamos un pequeño paso más allá y agreguemos el
@@ -471,6 +467,7 @@ local Utils
 
 local loaders = require("utils.loaders")
 
+-- load the utils modules
 Utils.config = loaders.load_config("utils.config")
 Utils.custom = loaders.load_config("utils.custom")
 Utils.helpers = loaders.load_config("utils.helpers")
@@ -514,8 +511,8 @@ nuestros propios zapatos blindados a prueba de errores.
 
 Si me permiten, ahora haré una pequeña refactorización para agrupar la carga de
 módulos en una única función (excluyendo `loaders` por supuesto) y separar los
-pasos de cargar `utils`, que solo cargaría los `loaders` del resto de módulos de
-utilidades:
+pasos de cargar `utils`, que solo cargaría los `loaders`, de la carga del resto
+de módulos de utilidades:
 
 ```lua
 ---A collection of custom helper functions.
