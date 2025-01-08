@@ -16,7 +16,7 @@ image: nvim.png
 ---
 # Aventuras en Neovim
 
-## Contexto y objetivos
+## 1. Contexto y objetivos
 
 ¿Cuántas veces hemos por error agregado ese carácter maligno que rompe nuestra
 configuración en mil pedazos? Un simple `rr` inadvertido sobre un paréntesis y
@@ -39,7 +39,7 @@ Para ello, esta red de seguridad debería cumplir las siguientes funciones:
 
 ---
 
-## Enfoque:
+## 2. Enfoque:
 
 A medida que vamos personalizando nuestra experiencia con Neovim, probablemente
 iremos acumulando código para simplificarnos las cosas. Por ejemplo, el
@@ -54,7 +54,7 @@ organizar mejor nuestra configuración y hacerla más mantenible en el proceso.
 
 ### Estado actual
 
-Ahora, veamos una configuración estándar con la siguiente estructura:
+Ahora, veamos una configuración de ejemplo estándar con la siguiente estructura:
 
 ```terminal
 $ cd ~/.config
@@ -88,7 +88,7 @@ ser una situación bastante empalagosa, pues no solo estaríamos lidiando con el
 error, sino que lo estaríamos haciendo sin el acceso a nuestros ajustes
 fundamentales.
 
-## 1. Nuestra configuración de respaldo
+## 3. Nuestra configuración de respaldo
 
 Por ejemplo, comentaré 2 ajustes básicos para mí. El primero, simplemente
 exigido por mi memoria muscular:
@@ -151,7 +151,7 @@ Ok, todo listo. Asumo que cada uno ya tiene claro lo que va dentro de su
 configuración fallback. Dado que ya definimos el _qué_, ahora sólo queda
 concentrarnos en el _cómo_.
 
-## 2. Nuestro módulo fallback
+## 4. Nuestro módulo fallback
 
 Para la carga de la configuración, básicamente debemos implementar un wrapper
 sobre las llamadas a `require`, o más específicamente, un wrapper en torno a
@@ -256,7 +256,7 @@ function Loaders.check_errors(fallbacks)
 end
 ```
 
-## Revisando
+## 5. Mejorando el código
 
 ¿Por qué cargamos _toda_ la configuración fallback y no sólo lo que ha fallado?
 
@@ -289,11 +289,10 @@ function Loaders.check_errors(fallbacks)
     print(" ") -- (creo que añadí esto para que el mensaje quedara mejor formateado)
     print("Opening files...")
 
-    local neovim_path = vim.fn.stdpath("config") .. "/lua/config"
     for _, error in pairs(Loaders.catched_errors) do
       -- Obtenemos el path del archivo con problemas desde el mensaje de error
       if error:sub(1, 1) ~= "/" then
-        error = string.format("%s/lua/%s.lua", neovim_path, str:gsub("%.", "/"))
+        error = string.format("%s/lua/%s.lua", NeovimPath, str:gsub("%.", "/"))
       end
 
       local path = get_path_from_error(error)
@@ -308,6 +307,17 @@ function Loaders.check_errors(fallbacks)
 end
 ```
 
+<!-- prettier-ignore-start -->
+> `NeovimPath` es una variable global que tengo definida en mi `init.lua`. Dejo
+> aquí la asignación por si quieren utilizarla en su implementación:
+>
+> ```lua
+> ---Path of the lua config (`nvim/lua/config/`).
+> MyConfigPath =  vim.fn.stdpath("config") .. "/lua/config/"
+> ```
+{: .prompt-info }
+<!-- prettier-ignore-end -->
+
 Podemos refactorizar un poco el nuevo código, moviendo la lógica de obtener el
 path a su propia función, `get_path_from_error`:
 
@@ -317,19 +327,14 @@ local function get_path_from_error(str)
     return str
   end
 
-  -- Este path lo utilizo en varios lugares distintos, de modo que lo tengo
-  -- definido como una variable global al principio de mi init.lua con el nombre
-  -- de NeovimPath junto a otras variables globales que luego valido con assert.
-  local neovim_path = vim.fn.stdpath("config") .. "/lua/config"
-
-  return string.format("%s/lua/%s.lua", neovim_path, str:gsub("%.", "/"))
+  return string.format("%s/lua/%s.lua", NeovimPath, str:gsub("%.", "/"))
 end
 ```
 
 Yo la agregaré dentro de `check_errors`, pero perfectamente podría estar como
-una variable local dentro de `loaders`.
+una función local o de `UtilsLoader`.
 
-## Juntando las partes
+## 6. Juntando las partes
 
 Incorporando todo esto en el código final, ya que somos personas civilizadas,
 aprovechamos de agregar las anotaciones correspondientes para ayudarnos con
@@ -403,9 +408,9 @@ end
 return Loaders
 ```
 
-¿Pero cuándo la versión final de un código ha sido realmente la final? Los
-lectores más atentos se habrán dado cuenta que en realidad no hemos solventado
-el problema al 100%. Veamos nuestro `init.lua`:
+¿Pero cuándo _la versión final_ de un código ha sido realmente _la final_? Los
+lectores más atentos se habrán dado cuenta que en realidad hemos ignorado una
+parte importante del problema. Veamos nuestro `init.lua` de ejemplo:
 
 ```lua
 local utils = require("utils")
@@ -422,7 +427,7 @@ dentro?
 
 Pues fallaría, y todo lo que hemos construido estaría de adorno.
 
-## ¿De vuelta al principio?
+## 7. ¿De vuelta al principio?
 
 No. Este no es como el típico artículo por subscripción en _Medium_ que nos
 abandona al pensar un poco por nuestra cuenta y salirnos unos milímetros de su
