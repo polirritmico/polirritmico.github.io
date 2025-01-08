@@ -1,6 +1,6 @@
 ---
 title: 'Neovimturas: El arte de sobrevivir a nuestras configuraciones temerarias'
-date: '2025-01-07 10:29 -0300'
+date: '2025-01-08 17:01 -0300'
 permalink: /posts/Neovim-Config
 lang: es
 categories:
@@ -14,24 +14,30 @@ description: Construyendo un módulo para cargar configuraciones de respaldo
 media_subpath: /assets/img/neovim/
 image: nvim.png
 ---
-# NeoVimturas: El arte de sobrevivir a nuestras configuraciones temerarias
+# Aventuras en Neovim
 
 ## Contexto y objetivos
 
 ¿Cuántas veces hemos por error agregado ese carácter maligno que rompe nuestra
 configuración en mil pedazos? Un simple `rr` inadvertido sobre un paréntesis y
 ¡sorpresa! ¡A comerse un kilo de mensajes con errores en el momento más
-inoportuno! En el presente artículo propongo construir una solución al respecto,
-un módulo que nos ayude no solo a manejar los errores de nuestra propia
-configuración, sino que también haga más amable el proceso de corregirlos.
+inoportuno!
 
-Para ello, nuestra red de seguridad debería cumplir las siguientes funciones:
+En el presente artículo propongo construir una solución al respecto, un módulo
+que nos ayude no solo a manejar los errores de nuestra propia configuración,
+sino que también haga más amable el proceso de corregirlos.
+
+Para ello, esta red de seguridad debería cumplir las siguientes funciones:
 
 - Cargar nuestros módulos de configuración de forma normal
 - En caso de error:
   - Cargar automáticamente una configuración fallback
   - Darnos información de dónde está el o los problemas
   - Preguntarnos si abrir o no los archivos con problemas para su edición
+
+¿Suena bien no? ¡Pues vamos a escribirlo!
+
+---
 
 ## Enfoque:
 
@@ -92,12 +98,12 @@ exigido por mi memoria muscular:
 vim.opt.langmap = "ñ:,Ñ\\;"
 ```
 
-Para los curiosos, en los teclados ISO-ES, a la derecha de la tecla `l` está la
-tecla `ñ` y no `;`. De modo que con ese ajuste no solo habilito la tecla `ñ` en
-el modo normal, sino que la configuro a "`:`" en lugar del "`;`". Un 2x1
-(habilitar la tecla `ñ` e invertir `;` con `:`).
-
-![Teclado ISO-ES](iso-es.png)
+> Para los curiosos, en los teclados ISO-ES, a la derecha de la tecla `l` está
+> la tecla `ñ` y no `;`. De modo que con ese ajuste no solo habilito la tecla
+> `ñ` en el modo normal, sino que la configuro a "`:`" en lugar del "`;`". Un
+> 2x1 (habilitar la tecla `ñ` e invertir `;` con `:`).
+>
+> ![Teclado ISO-ES](iso-es.png)
 
 Sin esto, cada vez que presiono la tecla `ñ` no ocurre nada y entonces cosas tan
 habituales como `ñw` (`:w`) seguido de `ZQ` no tendrían el efecto esperado 🥲.
@@ -145,13 +151,15 @@ Ok, todo listo. Asumo que cada uno ya tiene claro lo que va dentro de su
 configuración fallback. Dado que ya definimos el _qué_, ahora sólo queda
 concentrarnos en el _cómo_.
 
-## Nuestro módulo fallback
+## 2. Nuestro módulo fallback
 
 Para la carga de la configuración, básicamente debemos implementar un wrapper
 sobre las llamadas a `require`, o más específicamente, un wrapper en torno a
 `require` utilizando [pcall](<https://neovim.io/doc/user/luaref.html#pcall()>).
 Del error que captura `pcall`, podremos obtener la información necesaria y
 actuar en consecuencia.
+
+### El módulo
 
 Ha llegado el momento de sacar a relucir nuestras habilidades con lua. Veamos la
 forma básica del código (en `lua/utils/loaders.lua`):
@@ -199,6 +207,8 @@ que hay más de un módulo con problemas podemos informarlo de una vez y no de u
 en uno; haciendo más comprehensiva la carga y obteniendo más información en una
 única ejecución.
 
+### load_configs
+
 Revisemos la función `load_configs`. Recolectaremos los errores en una tabla que
 llamaremos `catched_errors`. La creamos fuera de la función:
 
@@ -216,6 +226,8 @@ function Loaders.load_config(module)
   return call_return
 end
 ```
+
+### check_errors
 
 Ahora tenemos la información de los errores, pero nos falta el qué hacer con
 ella. De eso se encargará la función `check_errors`:
@@ -243,6 +255,8 @@ function Loaders.check_errors(fallbacks)
   return false
 end
 ```
+
+## Revisando
 
 ¿Por qué cargamos _toda_ la configuración fallback y no sólo lo que ha fallado?
 
@@ -305,8 +319,7 @@ local function get_path_from_error(str)
 
   -- Este path lo utilizo en varios lugares distintos, de modo que lo tengo
   -- definido como una variable global al principio de mi init.lua con el nombre
-  -- de NeovimPath y junto a otras variables globales que luego valido con
-  -- assert.
+  -- de NeovimPath junto a otras variables globales que luego valido con assert.
   local neovim_path = vim.fn.stdpath("config") .. "/lua/config"
 
   return string.format("%s/lua/%s.lua", neovim_path, str:gsub("%.", "/"))
@@ -315,6 +328,8 @@ end
 
 Yo la agregaré dentro de `check_errors`, pero perfectamente podría estar como
 una variable local dentro de `loaders`.
+
+## Juntando las partes
 
 Incorporando todo esto en el código final, ya que somos personas civilizadas,
 aprovechamos de agregar las anotaciones correspondientes para ayudarnos con
@@ -407,16 +422,21 @@ dentro?
 
 Pues fallaría, y todo lo que hemos construido estaría de adorno.
 
+## ¿De vuelta al principio?
+
+<!-- prettier-ignore-start -->
 ![Ouroboros](ouroboros.jpg)
+_Toca comernos la cola_
+<!-- prettier-ignore-end -->
 
-Pero tranquilidad, este no es como el típico artículo en Medium que te abandona
-al pensar un poco por nuestra cuenta y salirnos unos milímetros de su marco
-principal. Recordemos que ya tenemos nuestro módulo `UtilsLoader` funcionando y
-por lo tanto no queda más que aplicar nuestro propio `loader` para, en pleno
-estilo _Inception_, cargar el propio `utils`.
+¡Tranquilidad! Este no es como el típico artículo por subscripción en _Medium_
+que nos abandona al pensar un poco por nuestra cuenta y salirnos unos milímetros
+de su marco principal (😙🎶). Recordemos que ya tenemos nuestro módulo
+`UtilsLoader` funcionando y por lo tanto no queda más que aplicar nuestro
+`loader` para, en pleno estilo _Inception_, cargar el propio `utils`.
 
-Este es el contenido de mi archivo `utils/init.lua` (editado para no
-distraernos):
+Este es el contenido de mi archivo `utils/init.lua` que se encarga de incorporar
+los distintos módulos en uno (editado para no distraernos):
 
 ```lua
 ---A collection of custom helper functions.
@@ -478,8 +498,16 @@ assert(loaders.check_errors())
 return Utils
 ```
 
+<!-- prettier-ignore-start -->
+Esta vez dejaré el código directamente en el módulo fuera de una functión, pero
+si quieren pueden enmarcarlo dentro de una función en cuyo caso recuerden hacer
+el llamado correspondiente.
+{: .prompt-info }
+<!-- prettier-ignore-end -->
+
 ¡Excelente! Ahora tenemos todas nuestras cargas protegidas y finalmente tenemos
-nuestros propios zapatos blindados.
+nuestros propios zapatos blindados a prueba de errores y alardes de propia
+torpeza.
 
 Si me permiten, ahora haré una pequeña refactorización para agrupar la carga de
 módulos en una única función (excluyendo `loaders` por supuesto) para hacer la
