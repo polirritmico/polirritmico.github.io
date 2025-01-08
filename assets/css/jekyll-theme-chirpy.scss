@@ -243,3 +243,8 @@ footer {
 #sidebar {
   width: 275px;
 }
+
+// toc content header shadow
+.toc-border-cover {
+  background: linear-gradient(var(--custom-bg-main) 50%, transparent);
+}
