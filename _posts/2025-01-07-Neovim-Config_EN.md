@@ -2,7 +2,7 @@
 title: 'Neovimtures: The Art of Surviving Our Reckless Configurations'
 date: '2025-01-08 17:01 -0300'
 permalink: /posts/Neovim-Config
-lang: es
+lang: en
 categories:
   - Neovim
   - Development
