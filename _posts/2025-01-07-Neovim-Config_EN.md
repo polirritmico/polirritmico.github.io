@@ -28,7 +28,7 @@ of correcting and dealing with them much more friendly.
 
 To this end, this 'safety net' should fulfill the following tasks:
 
-- load our configuration as usual.
+- Load our configuration as usual.
 - In case of error:
   - Automatically load a fallback configuration.
   - Give us information on where are the problems located

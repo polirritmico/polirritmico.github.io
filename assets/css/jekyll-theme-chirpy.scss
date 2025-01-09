@@ -245,6 +245,8 @@ footer {
 }
 
 // toc content header shadow
+.toc-border-cover,
+#toc-wrapper::before,
 .toc-border-cover {
-  background: linear-gradient(var(--custom-bg-main) 50%, transparent);
+  background: var(--custom-bg-main);
 }
