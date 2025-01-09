@@ -1,7 +1,7 @@
 ---
-title: 'Neovimtures: The Art of Surviving Our Reckless Configurations'
-date: '2025-01-08 17:01 -0300'
-permalink: /posts/Neovim-Config
+title: 'Adventures in Neovim: The Art of Surviving Our Reckless Configurations'
+date: '2025-01-08 21:45 -0300'
+permalink: /posts/Neovim-FalbackConfig
 lang: en
 categories:
   - Neovim
@@ -14,7 +14,7 @@ description: Building a module to load fallback configurations
 media_subpath: /assets/img/neovim/
 image: nvim.png
 ---
-# Adventures in Neovim
+# Neovimtures
 
 ## 1. Context and Objectives
 

@@ -1,7 +1,9 @@
 ---
-title: 'Neovimturas: El arte de sobrevivir a nuestras configuraciones temerarias'
-date: '2025-01-08 17:01 -0300'
-permalink: /posts/Neovim-Config
+title: >-
+  Aventuras en Neovim: El arte de sobrevivir a nuestras configuraciones
+  temerarias
+date: '2025-01-08 21:45 -0300'
+permalink: /posts/Neovim-FalbackConfig
 lang: es
 categories:
   - Neovim
