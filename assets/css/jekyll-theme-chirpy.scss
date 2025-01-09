@@ -245,8 +245,5 @@ footer {
 }
 
 // toc content header shadow
-.toc-border-cover,
-#toc-wrapper::before,
-.toc-border-cover {
-  background: var(--custom-bg-main);
-}
+.toc-border-cover { background: var(--custom-bg-main); }
+#toc-wrapper::before { background: var(--custom-bg-main); }
