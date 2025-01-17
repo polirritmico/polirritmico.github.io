@@ -2,7 +2,7 @@
 title: >-
   Aventuras en Neovim: El arte de sobrevivir a nuestras configuraciones
   temerarias
-date: '2025-01-08 21:45 -0300'
+date: '2025-01-17 17:03 -0300'
 permalink: /posts/Neovim-FalbackConfig
 lang: es
 categories:
@@ -21,7 +21,7 @@ image: nvim.png
 ## 1. Contexto y objetivos
 
 ¿Cuántas veces hemos por error agregado ese carácter maligno que rompe nuestra
-configuración en mil pedazos? Un simple `rr` inadvertido sobre un paréntesis y
+configuración en mil pedazos? Un simple `r` inadvertido sobre un paréntesis y
 ¡sorpresa! ¡A comerse un kilo de mensajes con errores en el momento más
 inoportuno!
 
@@ -29,7 +29,7 @@ En el presente artículo propongo construir una solución al respecto, un módul
 que nos ayude no solo a manejar los errores de nuestra propia configuración,
 sino que también haga más amable el proceso de corregirlos.
 
-Para ello, esta red de seguridad debería cumplir las siguientes funciones:
+Para ello, esta _red de seguridad_ debería cumplir las siguientes funciones:
 
 - Cargar nuestros módulos de configuración de forma normal
 - En caso de error:
@@ -100,15 +100,9 @@ exigido por mi memoria muscular:
 vim.opt.langmap = "ñ:,Ñ\\;"
 ```
 
-> Para los curiosos, en los teclados ISO-ES, a la derecha de la tecla `l` está
-> la tecla `ñ` y no `;`. De modo que con ese ajuste no solo habilito la tecla
-> `ñ` en el modo normal, sino que la configuro a `:` en lugar del `;`. Un 2x1
-> (habilitar la tecla `ñ` e invertir `;` con `:`).
->
-> ![Teclado ISO-ES](iso-es.png)
-
 Sin esto, cada vez que presiono la tecla `ñ` no ocurre nada y entonces cosas tan
-habituales como `ñw` (`:w`) seguido de `ZQ` no tendrían el efecto esperado 🥲.
+habituales como `ñw` (`:w`) seguido de `ZQ` no tendrían el efecto esperado 🥲
+(`ZQ` es equivalente a `:q!`).
 
 Como segundo ajuste fundamental para mí, es el habilitar los números de línea
 relativos (para hacer movimientos del tipo `[count]`+`j`/`l`):
@@ -127,10 +121,12 @@ fallback a medida. Sugiero tratar de aproximarla con un enfoque minimalista y
 robusto.
 
 Para la estructura de esta configuración fallback, repliquemos la misma
-estructura de nuestra configuración normal, aunque perfectamente a diferencia de
-lo que hago aquí, se podría agrupar todo en un único módulo. En cualquier caso,
-creemos el directorio `fallback` e incluyamos `settings.lua` y `mappings.lua`
-dentro:
+estructura de nuestra configuración normal. Aunque perfectamente a diferencia de
+lo que hago aquí, se podría agrupar todo en un único módulo, pero el problema de
+eso es que quizás no se ajuste a la lógica de la solución que se plantea. Por
+ello recomiendo seguir esta aproximación y si todavía les molesta, se puede
+ajustar al final. En cualquier caso, creemos el directorio `fallback` e
+incluyamos `settings.lua` y `mappings.lua` dentro:
 
 ```terminal
 $ mkdir lua/config/fallbacks
@@ -199,20 +195,27 @@ utils.load_config("config.plugins")
 utils.check_errors()
 ```
 
-¿Por qué separar la carga de la resolución de errores? Porque son 2 tareas
-distintas. Primero, queremos intentar cargar la configuración estándar. Luego,
-en lugar de lanzar el error inmediatamente seguimos intentando cargar los
-siguientes módulos, si estos módulos o parte de ellos funcionan correctamente,
-genial; la configuración actual es más cercana a lo que buscamos a pesar de
-haber encontrado errores. Segundo, al haber ido recolectando los errores, si es
-que hay más de un módulo con problemas podemos informarlo de una vez y no de uno
-en uno; haciendo más comprehensiva la carga y obteniendo más información en una
-única ejecución.
+Why separate loading from error resolution? Because they are two distinct tasks.
+First, we want to try loading the standard configuration. Secondly, if a problem
+arises, instead of throwing the error immediately, we continue loading further
+modules to gather more potential errors. In this way, if more than one module
+has problems, we can report them all at once rather than one at a time. This
+approach makes the loading process more comprehensive and provides more
+information about the issues in a single run.
+
+¿Por qué separar la carga de la resolución de errores? Por que son dos tareas
+distintas. Primero, queremos intentar cargar la configuración estándar. Segundo,
+si hay algún problema, en lugar de arrojar el error inmediatamente, continuamos
+la carga de los siguientes módulos para recolectar más errores potenciales. De
+esta forma, si más de un módulo tiene problemas, podemos reportarlos todos al
+mismo tiempo en lugar de uno en uno; haciendo el proceso de carga más
+comprehensivo al tiempo que proveemos mayor información de una única ejecución.
 
 ### load_configs
 
 Revisemos la función `load_configs`. Recolectaremos los errores en una tabla que
-llamaremos `catched_errors`. La creamos fuera de la función:
+llamaremos `catched_errors`. La creamos fuera de la función, a nivel del módulo,
+para acceder más tarde a ella:
 
 ```lua
 ---@type table Collection of errors detected by `load_config` (if any).
@@ -231,8 +234,8 @@ end
 
 ### check_errors
 
-Ahora tenemos la información de los errores, pero nos falta el qué hacer con
-ella. De eso se encargará la función `check_errors`:
+Ahora tenemos la información de los errores, pero todavía no definimos qué hacer
+con ella. De eso se encargará la función `check_errors`:
 
 ```lua
 ---@param fallbacks? boolean `true` to load fallback settings if errors are found.
@@ -265,7 +268,7 @@ end
 Ese fue mi primer enfoque, pero dependiendo lo que tengamos tanto en `settings`
 como en `mappings` la configuración podría quedar en un estado indeterminado,
 por ejemplo, si asociamos algún atajo con alguna función de `utils` o en base a
-un setting específigo.
+un setting específico.
 
 En segundo lugar y más importante, no perdamos el foco. El objetivo aquí es
 detectar que ha habido un problema y tener un entorno relativamente cómodo para
@@ -276,7 +279,7 @@ En fin, con `load_config` y `check_errors` ya tenemos la funcionalidad básica
 que buscábamos. No obstante, vamos un pequeño paso más allá y agreguemos el
 último punto de nuestros objetivos: el preguntar si abrir o no el fichero con
 problemas. Como la mayoría de las veces con Neovim, esto es bastante sencillo a
-través de `vim.fn.input`:
+través de la funcionalidad base. En este case a través de `vim.fn.input`:
 
 ```lua
 function Loaders.check_errors(fallbacks)
@@ -329,14 +332,15 @@ local function get_path_from_error(str)
 end
 ```
 
-Yo la agregaré dentro de `check_errors`, pero perfectamente podría estar como
-una función local o de `UtilsLoader`.
+Yo la agregaré dentro de `check_errors` para evitar _parsearla_ si no hay ningún
+error, pero perfectamente podría estar como una función local o ser un método de
+`UtilsLoader`.
 
 ## 6. Juntando las partes
 
 Incorporando todo esto en el código final, ya que somos personas civilizadas,
-aprovechamos de agregar las anotaciones correspondientes para ayudarnos con
-nuestro servidor lsp:
+aprovechamos de agregar las anotaciones correspondientes para ayudarnos con la
+noble cause de nuestro servidor LSP:
 
 ```lua
 ---Helper functions used to load Neovim config modules.
@@ -423,7 +427,7 @@ utils.check_errors()
 ¿Y qué ocurre dentro de `require("utils")`? ¿Qué pasa si hay un error allí
 dentro?
 
-Pues fallaría, y todo lo que hemos construido estaría de adorno.
+Pues fallaría, y con ello todo nuestro trabajo sería prácticamente en vano.
 
 ## 7. ¿De vuelta al principio?
 
@@ -478,7 +482,7 @@ Utils.helpers = loaders.load_config("utils.helpers")
 return Utils
 ```
 
-Pero, ¿por qué detenernos allí? ¿y si tenemos un problema dentro del propio
+Pero, ¿por qué detenernos aquí? ¿y si tenemos un problema dentro del propio
 `loaders`? De nuevo, `pcall` al rescate:
 
 ```lua
@@ -511,10 +515,10 @@ return Utils
 ¡Excelente! Ahora tenemos todas nuestras cargas protegidas y finalmente tenemos
 nuestros propios zapatos blindados a prueba de errores.
 
-Si me permiten, ahora haré una pequeña refactorización para agrupar la carga de
-módulos en una única función (excluyendo `loaders` por supuesto) y separar los
-pasos de cargar `utils`, que solo cargaría los `loaders`, de la carga del resto
-de módulos de utilidades:
+Si me permiten, ahora es buen momento de que hagamos una pequeña refactorización
+para agrupar la carga de módulos en una única función (excluyendo `loaders` por
+supuesto) y separar los pasos de cargar `utils` —que solo cargaría los
+`loaders`— de la carga del resto de módulos de utilidades:
 
 ```lua
 ---A collection of custom helper functions.
@@ -570,6 +574,25 @@ utils.check_errors()
 ```terminal
 $ nvim
 ```
+
+## 8. Conclusiones
+
+Desearía haber tenido algo parecido al inicio de mis _Aventuras en Neovim_. No
+obstante, a pesar de que hoy en día tengo la sensación de saber lo que estoy
+haciendo con mi configuración (aunque probablemente sea sólo una sensación y
+esté escribiendo más código duplicado que otra cosa), cada vez en cuando, este
+pequeño módulo me ha salvado de mi propia incompetencia. Cada vez que me hallo
+en esa situación con el módulo funcionando, pienso para mi mismo: «Vaya, Neovim
+es genial».
+
+Si nos preocupa el impacto en la _performance_ que puede generar este módulo,
+ejecuté una comparación sencilla entre `require` y `utils.load`. Después de 20
+ejecuciones de Neovim, la diferencia promedio fue un incremento de 0.55ms. Para
+poner ese valor en perspectiva, si el estar solucionando un problema nos toma 30
+segundos más sin nuestra configuración fallback (y por supuesto, _se va a
+sentir_ mucho más si seguimos presionando la `ñ` en lugar de `:`), el tiempo
+ahorrado arreglando un sólo error equivaldría a 54.545 cargas de Neovim sin el
+módulo.
 
 Bueno, espero que haya sido una lectura interesante y que alguna de las ideas
 presentadas sean de utilidad especialmente para aquellos, que temerosos de
