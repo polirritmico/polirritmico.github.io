@@ -287,10 +287,10 @@ function Loaders.check_errors(fallbacks)
     for _, error in pairs(Loaders.catched_errors) do
       -- We get the path to the troubled file from the error message
       if error:sub(1, 1) ~= "/" then
-        error = string.format("%s/lua/%s.lua", NeovimPath, str:gsub("%.", "/"))
+        path = string.format("%s/lua/%s.lua", NeovimPath, str:gsub("%.", "/"))
+      else
+        path = error
       end
-
-      local path = get_path_from_error(error)
 
       if vim.fn.findfile(path) ~= "" then
         vim.cmd("edit " .. path)
