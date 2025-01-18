@@ -69,7 +69,7 @@ pageviews:
   provider: # only supports 'goatcounter'
 
 # Colorscheme setting.
-theme_mode: dark # light/dark/empty. Empty follow system and adds toggle switch
+theme_mode: # light/dark/empty. Empty follow system and adds toggle switch
 
 # CDN endpoint for media resources.
 # Notice that once it is assigned, the CDN url will be added to all media
