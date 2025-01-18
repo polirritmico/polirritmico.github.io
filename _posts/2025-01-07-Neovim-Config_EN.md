@@ -126,12 +126,9 @@ fallback configuration, they should definitely go.
 Obviously, everyone should adjust the content of their fallback configuration to
 suit themselves. I suggest aiming for a minimalistic and robust approach.
 
-For the structure of this fallback configuration, let's replicate the same
-structure of our normal config. Although, unlike what I do here, you could think
-about grouping everything in a single module; the problem with that is that
-grouping every module into a single fallback module could conflict with the
-logic of the solution presented in this article. So I suggest following this
-approach and adjusting it afterward if you like. In any case, let's create the
+For the structure of this fallback configuration, let's replicate the structure
+of our normal config. Although, unlike what I do here, you could group
+everything into a single module; it's up to you. In any case, let's create the
 `fallback` directory and include `settings.lua` and `mappings.lua` inside:
 
 ```terminal
