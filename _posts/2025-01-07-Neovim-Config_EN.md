@@ -161,8 +161,8 @@ calls to `require`, or more specifically, a wrapper around `require` using
 
 ### The module
 
-The time has come to show off our lua skills. Let's see the basic form of the
-code (in `lua/utils/loaders.lua`):
+The time has come to show off our lua skills. Let's see the basic shape of the
+module's code (in `lua/utils/loaders.lua`):
 
 ```lua
 ---Helper functions used to safely load Neovim config modules.
@@ -177,8 +177,8 @@ function Loaders.load_config(module) end
 function Loaders.check_errors(fallback) end
 ```
 
-From here we can infer the idea, instead of using `require("config.mappings")`
-we will use `load_config("config.mappings")` and after that, we check whether
+From here we can infer the idea: instead of using `require("config.mappings")`
+we will use `load_config("config.mappings")`. After that, we could check whether
 there was an error or not with `check_errors()`:
 
 ```lua
@@ -255,14 +255,17 @@ function Loaders.check_errors(fallbacks)
 end
 ```
 
+As you see, the logic and code is very simple.
+
 ## 5. Improving the code
 
 Why do we load the _full_ fallback configuration and not just what has failed?
 
-That was my first approach, but depending on what we have in both `settings` and
-`mappings`, the config could be in an undetermined state. For example, if we
-associate a shortcut with some `utils` function or base it on a specific
-setting.
+That was my first approach on this, but depending on what we have in both
+`settings` and `mappings`, the config could be in an undetermined state. For
+example, if we associate a shortcut with some `utils` function or base it on a
+specific setting, that relationship would leave the code in a bad state. This is
+a fallback functionality; let's avoid potential issues.
 
 Secondly and more importantly, let's not lose focus. The goal here is to detect
 that there has been a problem and provide a relatively comfortable environment
@@ -320,15 +323,15 @@ local function get_path_from_error(str)
 end
 ```
 
-I will add it inside `check_errors` to avoid parsing it if no errors are found,
-but it could just as well be defined as a `UtilsLoader` or a local function
-(check the full snippet below).
+I will add it inside `check_errors` to avoid parsing it if no errors are found
+(check the code below), but it could just as well be defined as a `UtilsLoader`
+or a local function.
 
 ## 6. Putting the parts together
 
-Incorporating all this into the final code, and since we are civilized people,
-we take the opportunity to add the corresponding annotations to assist our LSP
-server in its noble and chivalrous task:
+Let's incorporate all this into the final code. Since we are civilized people,
+we should also take the opportunity to add the corresponding annotations to
+assist our LSP server in its noble and chivalrous task:
 
 ```lua
 ---Helper functions used to load Neovim config modules.
@@ -412,7 +415,8 @@ utils.load_config("config.plugins")
 utils.check_errors()
 ```
 
-And what happens inside `require("utils")`? What if there is a bug in there?
+And what happens inside `require("utils")`? What if there's a bug in there?
+After all, it's a huge bug vector.
 
 Well, it would fail, and all of our work would be for nothing.
 
@@ -429,8 +433,9 @@ working, and therefore, there is nothing left to do but apply our `loader` to
 _Loading the loader of the loader_
 <!-- prettier-ignore-end -->
 
-This is the content of my `utils/init.lua` file, which is responsible for
-incorporating the different modules in one (edited to avoid distractions):
+Let's assume this is the base content of our `utils/init.lua` file, responsible
+for incorporating the different utility modules into one source (narrowed down
+to avoid distractions):
 
 ```lua
 ---A collection of custom helper functions.
@@ -448,10 +453,11 @@ return Utils
 ```
 
 In the same way as in our main `init`, we have replaced the `require` calls with
-those of our own module. Here, we can do the same and even go a little further
+those of our own module; here, we can do the same and even go a little further
 by adding a _loaders loader_.
 
-First, we load our `loaders` module and replace the `require` calls with it:
+First, we load the `loaders` module itself and then replace the `require` calls
+with it (don't forget to check if there were errors in the importing procedure):
 
 ```lua
 ---@class Utils
@@ -463,6 +469,7 @@ local loaders = require("utils.loaders")
 Utils.config = loaders.load_config("utils.config")
 Utils.custom = loaders.load_config("utils.custom")
 Utils.helpers = loaders.load_config("utils.helpers")
+assert(loaders.check_errors())
 
 -- etc.
 return Utils
@@ -492,17 +499,11 @@ assert(loaders.check_errors())
 return Utils
 ```
 
-<!-- prettier-ignore-start -->
-> This time, I will leave the code directly in the module, but if you want, you
-> can create a function. In that case, remember to make the corresponding call.
-{: .prompt-info }
-<!-- prettier-ignore-end -->
-
 Excellent! Now we have all our loads protected, and we finally have our own
-error-proof armored shoes.
+error-proof armored shoes ready.
 
-If we may, we will now do a little refactoring to group the module loading into
-a single function (excluding `loaders` of course) and separate the steps of
+If we may, let's now do a little refactoring to group the module loading into a
+single function (excluding `loaders` of course) and separate the steps of
 loading `utils`, which would only load the `loaders`, from the loading of the
 other utility modules:
 
@@ -538,10 +539,12 @@ return Utils
 Beautiful.
 
 With this, we must remember that now, in addition to using `require("utils")`,
-we must initialize the module with `require("utils").load_utils()`. Also, with
-this `load_utils` function, we can easily add parameters to the loading of our
-utilities in the future. For example, we could add some profiler, start a DAP
-session, or simply avoid loading certain modules in specific contexts.
+we must initialize the module with `require("utils").load_utils()`.
+
+It's worth mentioning that with this design approach, the `load_utils` function
+could easily be modified to add parameters for loading our utilities in the
+future. For example, we could add a profiler, start a DAP session, or simply
+avoid loading certain modules in specific contexts.
 
 Now, we just need to adjust our `init.lua` and enjoy:
 
@@ -563,21 +566,23 @@ $ nvim
 ## 8. Conclusions
 
 I wish I had something like this in the early stages of my _Neovim adventures_.
-But nevertheless, even though at this stage I feel like I know what I'm doing
-—though it's probably just a feeling and I'm likely just writing duplicated
-logic most of the time—, every now and then, this little module saves me from my
-own incompetence. And every time I'm in that situation with the working module,
-I've thought to myself, "Oh, Neovim is great".
+But nevertheless, when these days I'm adding something to my setup and feel like
+I know what I'm doing, this little module comes to the rescue and reminds me
+that even a self-named level 20 paladin can roll a 1 at the worst moments. In
+those situations, it's nice to have done the homework and have a resilient
+system that protects us from our own cognitive clumsiness. At those moments,
+when the module arises and saves the day, every time I thought to myself, "Oh,
+this is the kind of thing I really enjoy about using Neovim".
 
-If we're concerned about the performance impact of this approach on your config,
+If we're concerned about the performance impact of this approach on our config,
 I ran a simple comparison between `require` and `utils.load`. After 20 Neovim
 startups, the average difference in time was 0.55ms. To put that in perspective,
 if troubleshooting an issue normally takes an extra 30 seconds without the
 fallback settings (and of course, that would _feel_ like much more if you keep
 pressing `ñ` to open the command line instead of `:`), the time saved by fixing
 a single error equals the load time of 54.545 Neovim executions. In that
-analysis, of course, the time spent building all this and going through all this
-reading is invaluable pure joy.
+analysis, of course, the time spent building the module and going through all
+this reading is invaluable pure joy.
 
 Well, I hope it has been an interesting read and that some of the ideas
 presented here will be useful, especially for those who, fearful of ruining
