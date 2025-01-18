@@ -82,16 +82,16 @@ require("plugins")
 ```
 
 The problem with this approach to building a configuration capable of supporting
-our own inoperability is that any error will lead to chaos and we will end up
-with the default settings. Depending on the case, this can be a rather
-frustrating situation, as not only would we be dealing with the error, but we
-would be doing so without access to our fundamental settings.
+our own inoperability is that any error on those modules will lead to chaos and
+we will end up with the default settings. Depending on the case, this can be a
+rather frustrating situation, as not only would we be dealing with the error,
+but we would be doing so without access to our fundamental settings.
 
 ## 3. Our fallback config
 
 For example, I'll show 2 basic settings for me as examples of the content of
-this fallback config. I've shown them to explain the criteria I'm following
-here, the goal is to include only the essentials here.
+this fallback config to explain the criteria I'm following here, the idea is to
+include only the essentials.
 
 The first setting, simply demanded by my fingers' memory:
 
@@ -107,9 +107,9 @@ vim.opt.langmap = "ñ:,Ñ\\;"
 >
 > ![ISO-ES Keyboard](iso-es.png)
 
-Without this setting, every time I press the `ñ` key (the positional equivalent
-for `:`), nothing happens, and common actions like `:w` (`ñw`) followed by `ZQ`
-won't have the expected effect 🥲 (`ZQ` is equivalent to `:q!`).
+Without this, every time I press the `ñ` key (the positional equivalent for
+`:`), nothing happens, and common actions like `:w` (`ñw`) followed by `ZQ`
+won't have the expected effect 🥲. (`ZQ` is equivalent to `:q!`)
 
 In this example, the second fundamental setting for me is enabling relative line
 numbers for `[count]`+`j`/`l` style moves:
