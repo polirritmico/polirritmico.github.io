@@ -272,8 +272,8 @@ possible.
 Anyway, with `load_config` and `check_errors`, we already have the basic
 functionality we were looking for. However, let's take a small step forward and
 add the last point of our goals: asking whether or not to open the file with
-problems. As is often the case with Neovim, this is quite simple to do, so we
-can use the provided `vim.fn.input`:
+problems. As is often the case with Neovim, this is quite simple to do with the
+provided built-in tools. In this case, we can use `vim.fn.input`:
 
 ```lua
 function Loaders.check_errors(fallbacks)
@@ -283,15 +283,9 @@ function Loaders.check_errors(fallbacks)
   if vim.fn.input("Attempt to open offending files for editing? (y/n): ") == "y" then
     print(" ") -- (I think I added this to make the message look better formatted)
     print("Opening files...")
-
-    for _, error in pairs(Loaders.catched_errors) do
+    for _, module in pairs(Loaders.catched_errors) do
       -- We get the path to the troubled file from the error message
-      if error:sub(1, 1) ~= "/" then
-        path = string.format("%s/lua/%s.lua", NeovimPath, str:gsub("%.", "/"))
-      else
-        path = error
-      end
-
+      local path = string.format("%s/lua/%s.lua", NeovimPath, module:gsub("%.", "/"))
       if vim.fn.findfile(path) ~= "" then
         vim.cmd("edit " .. path)
       end
@@ -314,7 +308,7 @@ end
 <!-- prettier-ignore-end -->
 
 We can refactor the new code a little, by moving the obtaining-path logic to its
-own function, `get_path_from_error`:
+own function, `get_path_from_error`, and also lets add support for more cases:
 
 ```lua
 local function get_path_from_error(str)
@@ -327,7 +321,8 @@ end
 ```
 
 I will add it inside `check_errors` to avoid parsing it if no errors are found,
-but it could just as well be defined as a `UtilsLoader` or a local function.
+but it could just as well be defined as a `UtilsLoader` or a local function
+(check the full snippet below).
 
 ## 6. Putting the parts together
 

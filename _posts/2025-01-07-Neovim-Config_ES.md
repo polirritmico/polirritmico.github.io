@@ -289,15 +289,9 @@ function Loaders.check_errors(fallbacks)
   if vim.fn.input("Attempt to open offending files for editing? (y/n): ") == "y" then
     print(" ") -- (creo que añadí esto para que el mensaje quedara mejor formateado)
     print("Opening files...")
-
-    for _, error in pairs(Loaders.catched_errors) do
+    for _, module in pairs(Loaders.catched_errors) do
       -- Obtenemos el path del archivo con problemas desde el mensaje de error
-      if error:sub(1, 1) ~= "/" then
-        path = string.format("%s/lua/%s.lua", NeovimPath, str:gsub("%.", "/"))
-      else
-        path = error
-      end
-
+      local path = string.format("%s/lua/%s.lua", NeovimPath, module:gsub("%.", "/"))
       if vim.fn.findfile(path) ~= "" then
         vim.cmd("edit " .. path)
       end
