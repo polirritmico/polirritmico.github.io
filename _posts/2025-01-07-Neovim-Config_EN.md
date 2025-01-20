@@ -329,6 +329,22 @@ or a local function.
 
 ## 6. Putting the parts together
 
+First, we need to choose a way to expose our code. For example, we could simply
+do something like `require("utils.loaders").load("config.mappings")` and call it
+a day. However, let's build something a little more ergonomic. In
+`utils/init.lua`:
+
+```lua
+local Utils = {}
+
+Utils.load = require("utils.loaders").load_config
+Utils.check_errors = require("utils.loaders").check_errors
+
+-- etc.
+
+return Utils
+```
+
 Let's incorporate all this into the final code. Since we are civilized people,
 we should also take the opportunity to add the corresponding annotations to
 assist our LSP server in its noble and chivalrous task:
@@ -487,6 +503,7 @@ if not ok then
   error(string.format("Error in 'utils.loaders':\n\n%s\n", loaders))
 end
 
+-- Expose the module through utils
 Utils.load = loaders.load_config
 Utils.check_errors = loaders.check_errors
 
@@ -502,10 +519,12 @@ return Utils
 Excellent! Now we have all our loads protected, and we finally have our own
 error-proof armored shoes ready.
 
+### Final touches to utils
+
 If we may, let's now do a little refactoring to group the module loading into a
 single function (excluding `loaders` of course) and separate the steps of
 loading `utils`, which would only load the `loaders`, from the loading of the
-other utility modules:
+other utility modules. The code explains itself better:
 
 ```lua
 ---A collection of custom helper functions.
@@ -515,7 +534,7 @@ other utility modules:
 ---@field helpers UtilsHelpers
 local Utils = {}
 
----Load the loaders
+-- Load the loaders. (executed only during the first `require("utils")` call)
 local ok, loaders = pcall(require, "utils.loaders")
 if not ok then
   vim.cmd("edit " .. NeovimPath .. "/lua/utils/loaders.lua")
@@ -525,6 +544,7 @@ end
 Utils.load = loaders.load_config
 Utils.check_errors = loaders.check_errors
 
+-- Load the utils modules.
 function Utils.load_utils()
   Utils.config = Utils.load("utils.config")
   Utils.custom = Utils.load("utils.custom")
@@ -536,7 +556,7 @@ end
 return Utils
 ```
 
-Beautiful.
+**_Beautiful._**
 
 With this, we must remember that now, in addition to using `require("utils")`,
 we must initialize the module with `require("utils").load_utils()`.

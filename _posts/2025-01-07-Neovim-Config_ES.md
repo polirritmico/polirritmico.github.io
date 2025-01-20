@@ -195,14 +195,6 @@ utils.load_config("config.plugins")
 utils.check_errors()
 ```
 
-Why separate loading from error resolution? Because they are two distinct tasks.
-First, we want to try loading the standard configuration. Secondly, if a problem
-arises, instead of throwing the error immediately, we continue loading further
-modules to gather more potential errors. In this way, if more than one module
-has problems, we can report them all at once rather than one at a time. This
-approach makes the loading process more comprehensive and provides more
-information about the issues in a single run.
-
 ¿Por qué separar la carga de la resolución de errores? Por que son dos tareas
 distintas. Primero, queremos intentar cargar la configuración estándar. Segundo,
 si hay algún problema, en lugar de arrojar el error inmediatamente, continuamos
@@ -332,9 +324,25 @@ error, pero perfectamente podría estar como una función local o ser un método
 
 ## 6. Juntando las partes
 
-Incorporando todo esto en el código final, ya que somos personas civilizadas,
-aprovechamos de agregar las anotaciones correspondientes para ayudarnos con la
-noble cause de nuestro servidor LSP:
+Lo primero, es escoger una forma de exponer este código. Por ejemplo, podríamos
+utilizar simplemente algo como
+`require("utils.loaders").load("config.mappings")` y darnos por satisfechos. No
+obstante, vayamos por un enfoque un poco más ergonómico. En `utils/init.lua`:
+
+```lua
+local Utils = {}
+
+Utils.load = require("utils.loaders").load_config
+Utils.check_errors = require("utils.loaders").check_errors
+
+-- etc.
+
+return Utils
+```
+
+Incorporando todo esto en el código final de nuestro módulo de cargadores, ya
+que somos personas civilizadas, aprovechamos de agregar las anotaciones
+correspondientes para ayudarnos con la noble causa de nuestro servidor LSP:
 
 ```lua
 ---Helper functions used to load Neovim config modules.
@@ -467,7 +475,11 @@ local Utils
 
 local loaders = require("utils.loaders")
 
--- load the utils modules
+-- exponemos los cargadores a través de utils
+Utils.load = loaders.load_config
+Utils.check_errors = loaders.check_errors
+
+-- cargar los módulos internos de utils
 Utils.config = loaders.load_config("utils.config")
 Utils.custom = loaders.load_config("utils.custom")
 Utils.helpers = loaders.load_config("utils.helpers")
@@ -509,10 +521,13 @@ return Utils
 ¡Excelente! Ahora tenemos todas nuestras cargas protegidas y finalmente tenemos
 nuestros propios zapatos blindados a prueba de errores.
 
+### Toques finales a utils
+
 Si me permiten, ahora es buen momento de que hagamos una pequeña refactorización
 para agrupar la carga de módulos en una única función (excluyendo `loaders` por
 supuesto) y separar los pasos de cargar `utils` —que solo cargaría los
-`loaders`— de la carga del resto de módulos de utilidades:
+`loaders`— de la carga del resto de módulos de utilidades. El código se explica
+mejor a sí mismo:
 
 ```lua
 ---A collection of custom helper functions.
@@ -522,7 +537,7 @@ supuesto) y separar los pasos de cargar `utils` —que solo cargaría los
 ---@field helpers UtilsHelpers
 local Utils = {}
 
----Load the loaders
+-- Carga los cargadores. Se ejecuta sólo durante el primer llamado a `require("utils")
 local ok, loaders = pcall(require, "utils.loaders")
 if not ok then
   vim.cmd("edit " .. NeovimPath .. "/lua/utils/loaders.lua")
@@ -532,6 +547,7 @@ end
 Utils.load = loaders.load_config
 Utils.check_errors = loaders.check_errors
 
+-- Load the utils modules.
 function Utils.load_utils()
   Utils.config = Utils.load("utils.config")
   Utils.custom = Utils.load("utils.custom")
@@ -543,12 +559,15 @@ end
 return Utils
 ```
 
-Hermoso.
+**_Hermoso._**
 
 Con esto, debemos recordar que ahora además de usar `require("utils")` debemos
-inicializar el módulo con `require("utils").load_utils()`. Además, con esta
-función de `load_utils`, a futuro podremos agregar fácilmente parámetros a la
-carga de nuestras utilidades. Por ejemplo, añadir algún profiler, levantar una
+inicializar el módulo con `require("utils").load_utils()` para cargar los
+módulos internos.
+
+Vale la pena mencionar que con este enfoque de diseño, la función `load_utils`
+podría ser fácilmente modificada a futuro para agregar parámetros a la carga de
+nuestras utilidades. Por ejemplo, podríamos añadir algún profiler, levantar una
 sesión DAP o simplemente evitar la carga de ciertos módulos en determinados
 contextos.
 
