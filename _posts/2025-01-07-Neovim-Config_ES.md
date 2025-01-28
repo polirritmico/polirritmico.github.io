@@ -45,7 +45,7 @@ Para ello, esta _red de seguridad_ debería cumplir las siguientes funciones:
 
 A medida que vamos personalizando nuestra experiencia con Neovim, probablemente
 iremos acumulando código para simplificarnos las cosas. Por ejemplo, el
-[típico wrapper](https://github.com/polirritmico/neovim.conf/blob/bd78a4eb5d97c890bd10a685993bdee3a64ff182/lua/utils/config.lua#L58)
+[típico wrapper](https://github.com/polirritmico/neovim.conf/blob/214b9764581cb35537e4394850b03581d0357613/lua/utils/config.lua#L58)
 a `vim.keymap.set`.
 
 Un estilo estándar que podemos observar en las configuraciones de Neovim más
@@ -332,8 +332,10 @@ obstante, vayamos por un enfoque un poco más ergonómico. En `utils/init.lua`:
 ```lua
 local Utils = {}
 
-Utils.load = require("utils.loaders").load_config
-Utils.check_errors = require("utils.loaders").check_errors
+-- exponemos los cargadores a través de utils
+local loaders = require("utils.loaders")
+Utils.load = loaders.load_config
+Utils.check_errors = loaders.check_errors
 
 -- etc.
 

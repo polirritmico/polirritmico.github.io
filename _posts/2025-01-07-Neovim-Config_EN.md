@@ -43,7 +43,7 @@ Sounds good? Well, let's code it!
 
 As we customize our Neovim experience, we will probably accumulate code to
 simplify things for us. For example, the
-[typical wrapper](https://github.com/polirritmico/neovim.conf/blob/bd78a4eb5d97c890bd10a685993bdee3a64ff182/lua/utils/config.lua#L58)
+[typical wrapper](https://github.com/polirritmico/neovim.conf/blob/214b9764581cb35537e4394850b03581d0357613/lua/utils/config.lua#L58)
 to `vim.keymap.set`.
 
 A standard way commonly observed in more advanced Neovim configurations, is to
@@ -337,8 +337,10 @@ a day. However, let's build something a little more ergonomic. In
 ```lua
 local Utils = {}
 
-Utils.load = require("utils.loaders").load_config
-Utils.check_errors = require("utils.loaders").check_errors
+-- expose the loaders through utils
+local loaders = require("utils.loaders")
+Utils.load = loader.load_config
+Utils.check_errors = loader.check_errors
 
 -- etc.
 
